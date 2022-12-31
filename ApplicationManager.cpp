@@ -20,6 +20,8 @@
 #include "Actions\PickByFigure.h"
 #include "Actions\PickByFill.h"
 #include "Actions\PickByFigFill.h"
+#include "Actions\SwitchToDraw.h"
+#include "Actions\SwitchToPlay.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()
@@ -118,11 +120,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case SWITCH:
 		//Save Function
-		pAct;
+		pAct = new SwitchToPlay(this);
 		break;
 	case SWITCHDRAW:
 		//Load Function (delete file)
-		pAct;
+		pAct = new SwitchToDraw(this);
 		break;
 	case EXIT:
 		///create ExitAction here
@@ -180,6 +182,7 @@ void ApplicationManager::DeleteFigure(CFigure* pFig) {
 	if (FigCount > 0) {
 	for(int i = 0; i<FigCount;i++)
 		if (FigList[i] == pFig) {
+			delete FigList[i];
 			FigList[i] = NULL;
 			c = i;
 			FigCount--;
@@ -295,7 +298,7 @@ int ApplicationManager::GetCount(CFigure* ptr,int x) {
 				totalcount++;
 		}
 	}
-	else {
+	else if (x==2) {
 		for (int i = 0; i < FigCount; i++)
 		{
 			if (CheckCircle(ptr)) {
@@ -352,7 +355,7 @@ void ApplicationManager::UpdateInterface() const
 	for (int i = 0; i < FigCount; i++) {
 		FigList[i]->Draw(pOut);
 	}		//Call Draw function (virtual member fn)
-	pOut->CreateDrawToolBar();
+	//pOut->CreateDrawToolBar();
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

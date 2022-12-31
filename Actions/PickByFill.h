@@ -3,13 +3,12 @@
 class PickByFill : public Action
 {
 	int correctcount, incorrectcount, totalcount;
-	bool correct, isfilled;
-	int x, y;
+	color c;
 public:
 	PickByFill(ApplicationManager* pApp);
 	~PickByFill();
-	char GetGrade();
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	string GetGrade();
+	void ReadActionParameters();
+	void Execute();
 };
 

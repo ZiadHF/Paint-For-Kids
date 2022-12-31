@@ -9,6 +9,14 @@ CFigure::CFigure(GfxInfo FigureGfxInfo)
 	Selected = false;
 }
 
+void CFigure::SetFilled(color c) {
+	FigGfxInfo.FillClr = c;
+}
+
+bool CFigure::IsFilled() const {
+	return (FigGfxInfo.isFilled);
+}
+
 void CFigure::SetSelected(bool s)
 {
 	Selected = s;
@@ -24,7 +32,7 @@ void CFigure::ChngDrawClr(color Dclr)
 	FigGfxInfo.DrawClr = Dclr;
 }
 color CFigure::GetColor() {
-	return 
+	return (FigGfxInfo.FillClr);
 }
 string CFigure::CheckColor(color x) {
 
@@ -47,6 +55,28 @@ string CFigure::CheckColor(color x) {
 		return "BLUE";
 	}
 	return "NO_FILL";
+}
+
+color CFigure::StringToColor(string x) {
+	if (x == "BLACK") {
+		return BLACK;
+	}
+	if (x == "YELLOW") {
+		return YELLOW;
+	}
+	if (x == "ORANGE") {
+		return ORANGE;
+	}
+	if (x == "RED") {
+		return RED;
+	}
+	if (x == "GREEN") {
+		return GREEN;
+	}
+	if (x == "BLUE") {
+		return BLUE;
+	}
+	return HOTPINK;
 }
 void CFigure::ChngFillClr(color Fclr)
 {

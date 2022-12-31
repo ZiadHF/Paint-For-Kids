@@ -23,7 +23,7 @@ protected:
 public:
 
 	CFigure(GfxInfo FigureGfxInfo);
-	void SetFilled(bool s);
+	void SetFilled(color c);
 	bool IsFilled() const;
 	void SetSelected(bool s);	//select/unselect the figure
 	bool IsSelected() const;	//check whether fig is selected
@@ -34,7 +34,7 @@ public:
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 	color GetColor();
 	virtual bool Contains(Point) = 0;
-
+	color StringToColor(string x);
 	string CheckColor(color x);
 
 	///The following functions should be supported by the figure class

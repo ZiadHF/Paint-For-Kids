@@ -15,20 +15,20 @@ PickByFigure::PickByFigure(ApplicationManager* pApp) : Action(pApp) {
 
 
 //Gets the Grade of the Kid.
-char PickByFigure::GetGrade() {
+string PickByFigure::GetGrade() {
 	float Grade = ((float)correctcount / (correctcount+incorrectcount)) * 100;
 	if (Grade >= 97)
-		return 'S';
+		return "S";
 	else if (Grade >= 89)
-		return 'A';
+		return "A";
 	else if (Grade >= 76)
-		return 'B';
+		return "B";
 	else if (Grade >= 67)
-		return 'C';
+		return "C";
 	else if (Grade >= 60)
-		return 'D';
+		return "D";
 	else
-		return 'F';
+		return "F";
 }
 
 //Read Parameters
@@ -42,7 +42,7 @@ void PickByFigure::ReadActionParameters()
 	int x = 0 + (rand() % (pManager->getFigCount() - 1));
 	CFigure* ptr = pManager->GetFig(x);
 	//Gets the count of all figures and the type of the figure.
-	totalcount = pManager->GetCount(ptr,0);
+	totalcount = pManager->GetCount(ptr,Figure);
 	Type = pManager->GetType(ptr);
 	//Prints the type of the figure to prompt the kid to get all those figures.
 	pOut->PrintMessage("Select all " + Type + "s");
@@ -74,8 +74,8 @@ void PickByFigure::Execute()
 		}
 	}
 	//Gets the grade of the kid and prints.
-	char Grade = GetGrade();
-	pOut->PrintMessage("You got " + to_string(Grade) + " and you got " + to_string(correctcount) + " correct clicks out of " + to_string(correctcount + incorrectcount) + " total clicks");
+	string Grade = GetGrade();
+	pOut->PrintMessage("You got " + Grade + " and you got " + to_string(correctcount) + " correct clicks out of " + to_string(correctcount + incorrectcount) + " total clicks");
 }
 
 //Destructor

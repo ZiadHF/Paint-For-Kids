@@ -9,7 +9,7 @@ public:
 	PickByFigure(ApplicationManager* pApp);
 	void ReadActionParameters();
 	void Execute();
-	char GetGrade();
+	string GetGrade();
 	~PickByFigure();
 };
 
