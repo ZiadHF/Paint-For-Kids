@@ -11,7 +11,18 @@ void Input::GetPointClicked(int& x, int& y) const
 {
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
+bool Input::MouseClicked(){
+	buttonstate test;
+	int x, y;
+		test= pWind->GetButtonState(LEFT_BUTTON,x,y);
+		if (test == BUTTON_DOWN)
+			return true;
+		return false;
+}
+void Input::MousePos(int&x, int&y) {
+	pWind->GetMouseCoord(x, y);
 
+}
 string Input::GetString(Output* pO) const
 {
 	string Label;
