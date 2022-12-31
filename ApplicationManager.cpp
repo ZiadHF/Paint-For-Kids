@@ -26,6 +26,7 @@ ApplicationManager::ApplicationManager()
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
+	//Create an array of Deleted figure pointers and sets them to NULL
 	for (int i = 0; i < 5; i++)
 		DelFigList[i] = NULL;
 }
@@ -62,11 +63,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DRAW_TRI:
 		pAct = new AddTriAction(this);
 		break;
-
 	case SELECT:
 		pAct = new SelectFigure(this);
 		break;
-
 	case SAVE:
 		pAct = new SaveAction(this);
 		break;
@@ -87,9 +86,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case EXIT:
 		///create ExitAction here
-
 		break;
-
 	case STATUS:	//a click on the status bar ==> no action
 		return;
 	}
@@ -130,11 +127,9 @@ CFigure* ApplicationManager::GetFigure(Point in) const
 		if (FigList[i]->Contains(in))
 			return FigList[i];
 	}
-	//Add your code here to search for a figure given a point x,y	
-	//Remember that ApplicationManager only calls functions do NOT implement it.
-
 	return NULL;
 }
+//Resets FigureList and sets all Figure pointers to NULL,And also setting FigCount to 0 
 void ApplicationManager::DeleteAllFigures() {
 	for (int i = 0; i < FigCount; i++) {
 		delete FigList[i];
@@ -142,7 +137,7 @@ void ApplicationManager::DeleteAllFigures() {
 	}
 	FigCount = 0;
 }
-// Saving each individual figure by looping on the figlist and accessing its save virtual function
+//Deletes a figure and adds it to the deleted Figure list, and shifting the figure list left
 void ApplicationManager::DeleteFigure(CFigure* pFig) {
 	int c;
 	if (FigCount > 0) {
@@ -157,10 +152,12 @@ void ApplicationManager::DeleteFigure(CFigure* pFig) {
 		FigList[i] = FigList[i + 1];
 	}
 }
+//FigCount Getter
 int ApplicationManager::getFigCount() 
 {
 	return FigCount;
 }
+//Adding deleted figures to deleted figure list
 void ApplicationManager::AddDelFigure(CFigure* pFig) {
 	if (DelFigInd < 5) {
 		DelFigList[DelFigInd++] = pFig;
@@ -171,6 +168,7 @@ void ApplicationManager::AddDelFigure(CFigure* pFig) {
 	}
 	DelFigCount++;
 }
+// Saving each individual figure by looping on the figlist and accessing its save virtual function
 void ApplicationManager::SaveAll(ofstream& OutFile) {
 	OutFile << FigCount << endl;
 	for (int i = 0; i < FigCount; i++) {

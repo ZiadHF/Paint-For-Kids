@@ -12,13 +12,13 @@ private:
 public:
 	CCircle();
 	CCircle(Point, Point, GfxInfo FigureGfxInfo);
-	virtual void Draw(Output* pOut) const;
-	void CCircle::PrintInfo(Output* pOut);
-	void MoveFigure(Point);
-	bool Contains(Point);
-
-	void Save(ofstream& OutFile);
-	void Load(ifstream& InFile);
+	
+	virtual void Draw(Output* pOut) const;//Draws circle on screen
+	void CCircle::PrintInfo(Output* pOut);//Prints circle info
+	void MoveFigure(Point);//Moves circle
+	bool Contains(Point);//Checks if circle contains point
+	void Save(ofstream& OutFile);//Saves circle info
+	void Load(ifstream& InFile);//Loads circle info
 
 };
 
