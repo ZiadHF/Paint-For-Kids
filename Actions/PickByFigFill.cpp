@@ -1,8 +1,8 @@
 #include "PickByFigFill.h"
-#include "Figures\CTriangle.h"
-#include "ApplicationManager.h"
-#include "GUI\input.h"
-#include "GUI\Output.h"
+#include "..\Figures\CTriangle.h"
+#include "..\ApplicationManager.h"
+#include "..\GUI\input.h"
+#include "..\GUI\Output.h"
 
 PickByFigFill::PickByFigFill(ApplicationManager* pApp) : Action(pApp) {
 

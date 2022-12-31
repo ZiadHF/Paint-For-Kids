@@ -1,8 +1,7 @@
 #include "PickByFill.h"
-
-#include "ApplicationManager.h"-
-#include "GUI\input.h"
-#include "GUI\Output.h"
+#include "..\ApplicationManager.h"-
+#include "..\GUI\input.h"
+#include "..\GUI\Output.h"
 
 PickByFill::PickByFill(ApplicationManager* pApp) :Action(pApp) {
 	totalcount = 0;
@@ -32,13 +31,20 @@ void PickByFill::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	//Gets a random number between 0 and FigCount-1
+	int x;
+	CFigure* ptr;
+	do {
+		x = 0 + (rand() % (pManager->getFigCount() - 1));
+		ptr = pManager->GetFig(x);
 
-	pOut->PrintMessage("Select a color to begin.");
-
-	//Read Center and store in point Center
-	pIn->GetPointClicked(x, y);
-
-
+	} 
+	while (!(ptr->IsFilled()));
+	//Gets the count of all figures and the type of the figure.
+	totalcount = pManager->GetCount(ptr,1);
+	color c = ptr->GetColor();
+	//Prints the colour to prompt the kid to get all those figures.
+	pOut->PrintMessage("Select all " + ptr->CheckColor(c) + " Figures");
 	/*
 	Get the color, with total count of the color
 	if clicked on a figure, check if selected figure is the same color.
@@ -52,7 +58,6 @@ void PickByFill::ReadActionParameters()
 	3-CHECKING COLOR IS THE SAME
 	4-A WAY TO GET THE COUNT OF ALL FIGURES IN THE DRAW AREA
 	**/
-	pOut->ClearStatusBar();
 
 }
 

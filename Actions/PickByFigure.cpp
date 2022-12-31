@@ -1,12 +1,12 @@
 #include "PickByFigure.h"
-#include "Figures/CCircle.h"
-#include "Figures/CRectangle.h"
-#include "Figures/CHexagon.h"
-#include "Figures/CTriangle.h"
-#include "Figures/CSquare.h"
-#include "ApplicationManager.h"
-#include "GUI\input.h"
-#include "GUI\Output.h"
+#include "..\Figures/CCircle.h"
+#include "..\Figures/CRectangle.h"
+#include "..\Figures/CHexagon.h"
+#include "..\Figures/CTriangle.h"
+#include "..\Figures/CSquare.h"
+#include "..\ApplicationManager.h"
+#include "..\GUI\input.h"
+#include "..\GUI\Output.h"
 
 //Constructor
 PickByFigure::PickByFigure(ApplicationManager* pApp) : Action(pApp) {
@@ -42,9 +42,9 @@ void PickByFigure::ReadActionParameters()
 	int x = 0 + (rand() % (pManager->getFigCount() - 1));
 	CFigure* ptr = pManager->GetFig(x);
 	//Gets the count of all figures and the type of the figure.
-	totalcount = pManager->GetCount(ptr);
+	totalcount = pManager->GetCount(ptr,0);
 	Type = pManager->GetType(ptr);
-	//Prints the 
+	//Prints the type of the figure to prompt the kid to get all those figures.
 	pOut->PrintMessage("Select all " + Type + "s");
 }
 

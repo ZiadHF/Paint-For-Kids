@@ -12,8 +12,8 @@ void CAll::Execute() {
 	ReadActionParameters();
 	pManager->DeleteAllFigures();
 	pManager->setSelectedFigure(NULL);
-	pManager->ClearRecording();
-	pManager->ClearUndo();
+	//pManager->ClearRecording();
+	//pManager->ClearUndo();
 }
 
 CAll::~CAll()

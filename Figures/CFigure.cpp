@@ -23,6 +23,9 @@ void CFigure::ChngDrawClr(color Dclr)
 {
 	FigGfxInfo.DrawClr = Dclr;
 }
+color CFigure::GetColor() {
+	return 
+}
 string CFigure::CheckColor(color x) {
 
 	if (x == BLACK) {
