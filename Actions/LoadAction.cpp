@@ -39,7 +39,7 @@ void LoadAction::Execute() {
 	LoadFile >> n;
 
 	CFigure* fig = nullptr;
-	pManager->setSelectedFigure(NULL);
+	
 	pManager->DeleteAllFigures();
 	for (int i = 0; i < n; i++) {
 		LoadFile >> x;

@@ -3,7 +3,6 @@
 #include"Action.h"
 #include"../Figures/CFigure.h"
 #include "../ApplicationManager.h"
-#include <iostream>
 #include "../GUI/Input.h"
 #include "../GUI/Output.h"
 
@@ -17,9 +16,10 @@ void SelectFigure::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 
 	pOut->PrintMessage("Selecting Figure: Click on figure");
-
+	
 	//Read mouseclick to check if figure exists
 	pIn->GetPointClicked(clicked.x, clicked.y);
+	
 
 
 
@@ -42,25 +42,30 @@ void SelectFigure::Execute()
 			//Checks if there is a selected figure
 			//handles deselection of figure
 			if (pManager->getSelectedFigure() != NULL) {
+				
 				if (pManager->getSelectedFigure() == checked) {
 					pManager->getSelectedFigure()->SetSelected(false);
 					pManager->setSelectedFigure(NULL);
 					pOut->ClearStatusBar();
+					
 				}
 				//handles the different figure selected case
 				else {
+					
 					pManager->getSelectedFigure()->SetSelected(false);
 					pManager->setSelectedFigure(checked);
 					checked->SetSelected(!(checked->IsSelected()));
 					checked->PrintInfo(pOut);
+					
 				}
 			}
 			//Handles the no selected figure case
 			else {
+				
 				pManager->setSelectedFigure(checked);
 				checked->SetSelected(!(checked->IsSelected()));
 				checked->PrintInfo(pOut);
-				cout << "HERE";
+				
 			}
 
 		}
