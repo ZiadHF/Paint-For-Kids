@@ -46,9 +46,9 @@ enum ActionType //The actions supported (you can add more if needed)
 };
 
 enum PickAndHideModes {
-	FigFill,
+	Figure,
 	Fill,
-	Figure
+	FigFill,
 };
 
 struct Point	//To be used for figures points

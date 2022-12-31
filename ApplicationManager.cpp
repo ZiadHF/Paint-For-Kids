@@ -302,24 +302,34 @@ int ApplicationManager::GetCount(CFigure* ptr,int x) {
 		for (int i = 0; i < FigCount; i++)
 		{
 			if (CheckCircle(ptr)) {
-				if (((dynamic_cast <CCircle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor()))
+				if (((dynamic_cast <CCircle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckHex(ptr)) {
-				if (((dynamic_cast <CHexagon*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor()))
+				if (((dynamic_cast <CHexagon*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckRect(ptr)) {
-				if (((dynamic_cast <CRectangle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor()))
+				if (((dynamic_cast <CRectangle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckSquare(ptr)) {
-				if (((dynamic_cast <CSquare*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor()))
+				if (((dynamic_cast <CSquare*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckTri(ptr)) {
-				if (((dynamic_cast <CTriangle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor()))
+				if (((dynamic_cast <CTriangle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
 					totalcount++;
+					continue;
+				}
 			}
 		}
 	}

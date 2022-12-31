@@ -5,7 +5,7 @@
 #include "..\GUI\Output.h"
 
 PickByFigFill::PickByFigFill(ApplicationManager* pApp) : Action(pApp) {
-
+	correctcount = incorrectcount = totalcount = 0;
 }
 
 string PickByFigFill::GetGrade() {
@@ -39,9 +39,9 @@ void PickByFigFill::ReadActionParameters()
 
 	} while (!(ptr->IsFilled()));
 	//Gets the count of all figures and the type of the figure.
-	totalcount = pManager->GetCount(ptr, FigFill);
 	c = ptr->GetColor();
 	Type = pManager->GetType(ptr);
+	totalcount = pManager->GetCount(ptr, FigFill);
 	//Prints the colour to prompt the kid to get all those figures.
 	pOut->PrintMessage("Select all " + ptr->CheckColor(c) + " & " + Type + " Figures");
 }
@@ -67,6 +67,7 @@ void PickByFigFill::Execute()
 			if ((ctest == c) && !(Type.compare(type))) {
 				correctcount++;
 				pManager->DeleteFigure(ptr);
+				pManager->UpdateInterface();
 			}
 			else
 				incorrectcount++;

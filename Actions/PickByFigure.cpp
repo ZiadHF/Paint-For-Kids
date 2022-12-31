@@ -68,6 +68,7 @@ void PickByFigure::Execute()
 			if (!(Type.compare(type))) {
 				correctcount++;
 				pManager->DeleteFigure(ptr);
+				pManager->UpdateInterface();
 			}
 			else
 				incorrectcount++;

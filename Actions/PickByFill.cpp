@@ -64,6 +64,7 @@ void PickByFill::Execute()
 			if (ctest == c) {
 				correctcount++;
 				pManager->DeleteFigure(ptr);
+				pManager->UpdateInterface();
 			}
 			else
 				incorrectcount++;
