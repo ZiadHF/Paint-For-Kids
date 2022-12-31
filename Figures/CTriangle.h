@@ -16,7 +16,7 @@ public:
 	void CTriangle::PrintInfo(Output* pOut);
 	void MoveFigure(Point);
 	bool CTriangle::Contains(Point);
-
+	void ResizeFigure();
 	void Save(ofstream& OutFile);
 
 };

@@ -15,7 +15,7 @@ public:
 	void CCircle::PrintInfo(Output* pOut);
 	void MoveFigure(Point);
 	bool Contains(Point);
-
+	void ResizeFigure();
 	void Save(ofstream& OutFile);
 
 };

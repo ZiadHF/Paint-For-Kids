@@ -32,7 +32,7 @@ public:
 	void setID(int);
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
-
+	virtual void ResizeFigure() = 0;
 	virtual bool Contains(Point) = 0;
 
 	string CheckColor(color x);
