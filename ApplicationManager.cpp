@@ -6,6 +6,7 @@
 #include"Actions/AddTriAction.h"
 #include "Actions/SaveAction.h"
 #include"Figures/CCircle.h"
+#include"Actions/LoadAction.h"
 #include"Actions/SelectFigure.h"
 #include"Actions/DeleteFig.h"
 #include"Actions/MoveAction.h"
@@ -68,7 +69,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	case SAVE:
 		pAct = new SaveAction(this);
-
+		break;
+	case LOAD:
+		pAct = new LoadAction(this);
 		break;
 	case DEL:
 		pAct = new DeleteFig(this);
@@ -131,6 +134,13 @@ CFigure* ApplicationManager::GetFigure(Point in) const
 	//Remember that ApplicationManager only calls functions do NOT implement it.
 
 	return NULL;
+}
+void ApplicationManager::DeleteAllFigures() {
+	for (int i = 0; i < FigCount; i++) {
+		delete FigList[i];
+		FigList[i] = NULL;
+	}
+	FigCount = 0;
 }
 // Saving each individual figure by looping on the figlist and accessing its save virtual function
 void ApplicationManager::DeleteFigure(CFigure* pFig) {

@@ -3,7 +3,7 @@
 #include"Action.h"
 #include"../Figures/CFigure.h"
 #include "../ApplicationManager.h"
-
+#include <iostream>
 #include "../GUI/Input.h"
 #include "../GUI/Output.h"
 
@@ -60,6 +60,7 @@ void SelectFigure::Execute()
 				pManager->setSelectedFigure(checked);
 				checked->SetSelected(!(checked->IsSelected()));
 				checked->PrintInfo(pOut);
+				cout << "HERE";
 			}
 
 		}

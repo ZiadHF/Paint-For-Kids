@@ -9,7 +9,9 @@ class CSquare : public CFigure
 private:
 	Point Center;
 public:
+	CSquare();
 	CSquare(Point, GfxInfo FigureGfxInfo);
+	void Load(ifstream& InFile);
 	virtual void Draw(Output* pOut) const;
 	void CSquare::PrintInfo(Output* pOut);
 	void MoveFigure(Point);

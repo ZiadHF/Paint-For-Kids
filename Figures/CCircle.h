@@ -10,6 +10,7 @@ private:
 	Point Center;
 	Point Radius;
 public:
+	CCircle();
 	CCircle(Point, Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	void CCircle::PrintInfo(Output* pOut);
@@ -17,6 +18,7 @@ public:
 	bool Contains(Point);
 
 	void Save(ofstream& OutFile);
+	void Load(ifstream& InFile);
 
 };
 

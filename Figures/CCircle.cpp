@@ -1,5 +1,8 @@
 #include "CCircle.h"
-
+CCircle::CCircle()  
+{
+	 
+}
 
 CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
@@ -36,6 +39,25 @@ bool CCircle::Contains(Point test) {
 		return true;
 	else
 		return false;
+}
+void CCircle::Load(ifstream& InFile) {
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	InFile >> x;
+	Radius.x = x;
+	InFile >> x;
+	Radius.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
 }
 void CCircle::MoveFigure(Point change) {
 	Radius.x = change.x + (Radius.x - Center.x);

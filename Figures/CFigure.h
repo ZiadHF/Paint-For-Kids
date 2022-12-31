@@ -21,8 +21,10 @@ protected:
 	/// Add more parameters if needed.
 
 public:
-
+	CFigure();
 	CFigure(GfxInfo FigureGfxInfo);
+	string CheckColor(color x);
+	color StringToColor(string x);
 	void SetFilled(bool s);
 	bool IsFilled() const;
 	void SetSelected(bool s);	//select/unselect the figure
@@ -35,7 +37,7 @@ public:
 
 	virtual bool Contains(Point) = 0;
 
-	string CheckColor(color x);
+	 
 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure
@@ -44,7 +46,7 @@ public:
 
 
 	virtual void Save(ofstream& OutFile) = 0;	//Save the figure parameters to the file
-	//virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
+	virtual void Load(ifstream &Infile) = 0;	//Load the figure parameters to the file
 
 	virtual void PrintInfo(Output* pOut) = 0;	//print all figure info on the status bar
 };

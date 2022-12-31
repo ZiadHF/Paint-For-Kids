@@ -11,6 +11,7 @@ private:
 	int Height, Width;
 
 public:
+	CRectangle();
 	CRectangle(Point, Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	void PrintInfo(Output* pOut);
@@ -18,7 +19,7 @@ public:
 	bool Contains(Point);
 
 	void Save(ofstream& OutFile);
-
+	void Load(ifstream& InFile);
 };
 
 #endif

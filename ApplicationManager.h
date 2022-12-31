@@ -27,6 +27,7 @@ public:
 
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
+	void DeleteAllFigures();
 	ActionType GetUserAction() const;
 	void ExecuteAction(ActionType); //Creates an action and executes it
 	CFigure* getSelectedFigure();
