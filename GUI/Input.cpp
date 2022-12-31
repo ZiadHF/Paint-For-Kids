@@ -6,7 +6,14 @@ Input::Input(window* pW)
 {
 	pWind = pW; //point to the passed window
 }
+bool Input::MouseClicked(int &x,int &y) {
+	
+	buttonstate clicked = pWind->GetButtonState(LEFT_BUTTON,x, y);
+	if (clicked == BUTTON_DOWN)
+		return true;
+	return false;
 
+}
 void Input::GetPointClicked(int& x, int& y) const
 {
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click

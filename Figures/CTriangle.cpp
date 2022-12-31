@@ -47,3 +47,24 @@ void CTriangle::MoveFigure(Point change) {
 	vert3.x = change.x + (vert3.x - Centroid.x);
 	vert3.y = change.y + (vert3.y - Centroid.y);
 }
+void CTriangle::ResizeFigure(Point initial,Point final) {
+	if (initial.x==vert1.x && initial.y==vert1.y) {
+	
+		vert1.x=final.x;
+		vert1.x=final.y;
+	
+	}
+	if (initial.x == vert2.x && initial.y == vert2.y) {
+
+		vert2.x = final.x;
+		vert2.x = final.y;
+
+	}
+	if (initial.x == vert3.x && initial.y == vert3.y) {
+
+		vert3.x = final.x;
+		vert3.x = final.y;
+
+	}
+
+}
