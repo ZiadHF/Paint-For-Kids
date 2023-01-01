@@ -1,5 +1,8 @@
 #include "CCircle.h"
-
+CCircle::CCircle()  
+{
+	 
+}
 
 CCircle::CCircle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
@@ -15,6 +18,7 @@ void CCircle::Draw(Output* pOut) const
 	pOut->DrawCir(Center, Radius, FigGfxInfo, Selected);
 
 }
+//Saves circle data in a line
 void CCircle::Save(ofstream& OutFile) {
 	OutFile << "CIRC" << " " << ID << " " << Center.x << " " << Center.y << " " << Radius.x << " " << Radius.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 
@@ -28,6 +32,7 @@ void CCircle::PrintInfo(Output* pOut) {
 	data2 = " Radius= " + to_string(rcircle);
 	pOut->PrintMessage("Circle " + dataid + data1 + data2);
 }
+//Checks if the given point is inside the circle
 bool CCircle::Contains(Point test) {
 	double dtest, rcircle;
 	rcircle = pow((Radius.x - Center.x), 2) + pow((Radius.y - Center.y), 2);
@@ -37,6 +42,27 @@ bool CCircle::Contains(Point test) {
 	else
 		return false;
 }
+//Loads Circle information from a file 
+void CCircle::Load(ifstream& InFile) {
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	InFile >> x;
+	Radius.x = x;
+	InFile >> x;
+	Radius.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
+}
+//Translates Figure to a new location, making its center the given point
 void CCircle::MoveFigure(Point change) {
 	Radius.x = change.x + (Radius.x - Center.x);
 	Radius.y = change.y + (Radius.y - Center.y);

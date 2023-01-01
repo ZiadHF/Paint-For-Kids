@@ -136,6 +136,7 @@
     <ClCompile Include="Actions\ChangeDrawcolorAction.cpp" />
     <ClCompile Include="Actions\ChangeFillColorAction.cpp" />
     <ClCompile Include="Actions\DeleteFig.cpp" />
+    <ClCompile Include="Actions\LoadAction.cpp" />
     <ClCompile Include="Actions\MoveAction.cpp" />
     <ClCompile Include="Actions\PlayRecordingAction.cpp" />
     <ClCompile Include="Actions\SaveAction.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Actions\ChangeDrawcolorAction.h" />
     <ClInclude Include="Actions\ChangeFillColorAction.h" />
     <ClInclude Include="Actions\DeleteFig.h" />
+    <ClInclude Include="Actions\LoadAction.h" />
     <ClInclude Include="Actions\MoveAction.h" />
     <ClInclude Include="Actions\PlayRecordingAction.h" />
     <ClInclude Include="Actions\SaveAction.h" />

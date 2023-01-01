@@ -3,7 +3,7 @@
 #include"../Actions/Action.h"
 #include"../Figures/CFigure.h"
 #include "../ApplicationManager.h"
-
+#include"../CMUgraphicsLib/auxil.h"
 #include "../GUI/Input.h"
 #include "../GUI/Output.h"
 
@@ -15,13 +15,16 @@ void MoveAction::ReadActionParameters()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 	pOut->PrintMessage("Moving Figure: please select new center");
+
     checked = pManager->getSelectedFigure();
     
+
 }
 
 //Execute the action
 void MoveAction::Execute()
 {
+
 
     Input* pIn = pManager->GetInput();
     Output* pOut = pManager->GetOutput();
@@ -71,5 +74,6 @@ void MoveAction::Execute()
             pOut->PrintMessage("Please Select a figure first");
         }
     }
+
 }
 

@@ -2,6 +2,10 @@
 #include "..\Figures\CHexagon.h"
 #include<cmath>
 #include<string>
+CHexagon::CHexagon()  
+{
+	 
+}
 CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 {
 	ID = count;
@@ -36,6 +40,21 @@ bool CHexagon::Contains(Point test) {
 			c = !c;
 	}
 	return c;
+}
+void CHexagon::Load(ifstream& InFile) {
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
 }
 void CHexagon::MoveFigure(Point change) {
 	Center.x = change.x;
