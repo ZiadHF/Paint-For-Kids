@@ -18,4 +18,6 @@ void StartRecordingAction::Execute()
 {
 	ReadActionParameters();
 	pManager->setRecFlag(true);
+	Output* pOut = pManager->GetOutput();
+	pOut->PrintMessage("Starting Recording");
 }

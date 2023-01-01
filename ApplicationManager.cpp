@@ -172,7 +172,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case EXIT:
 		///create ExitAction here
 	case STARTREC:
-		if (FigCount == 0) {
+		if (FigCount == 0&&NoActions) {
 			pAct = new StartRecordingAction(this);
 			RecFlag = true;
 			forbidRec = true;
@@ -207,7 +207,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		
 		if (!RecFlag || forbidRec) 
 		{
-			
+			if(ActType!=CLEARALL)
+			NoActions = false;
 			delete pAct;	//You may need to change this line depending to your implementation
 			pAct = NULL;
 		}
@@ -293,6 +294,10 @@ void ApplicationManager::ExceuteActions() {
 
 void ApplicationManager::setRecFlag(boolean RecControl) {
 	RecFlag = RecControl;
+}
+void ApplicationManager::setNoActions(bool check) {
+	NoActions = check;
+
 }
 //==================================================================================//
 //						Figures Management Functions								//

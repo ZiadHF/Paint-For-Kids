@@ -13,6 +13,7 @@ class ApplicationManager
 	enum { MaxFigCount = 200 };	//Max no of figures
 
 private:
+	bool NoActions = true;
 	bool IsPicked = false;
 	int FigCount,DelFigCount, DelFigInd;//Actual number of figures , Deleted figures and Deleted figure indicies
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
@@ -37,6 +38,7 @@ public:
 	// -- Action-Related Functions
 
 	//Reads the input command from the user and returns the corresponding action type
+	void setNoActions(bool check);
 	void ClearDel();
 	void ClearRecording();
 	void ClearUndo();

@@ -20,6 +20,7 @@ void CAll::Execute() {
 	pManager->ClearRecording();
 	pManager->ClearDel();
 	pManager->ClearUndo();
+	pManager->setNoActions(true);
 	pOut->PrintMessage("Cleared everything.");
 }
 
