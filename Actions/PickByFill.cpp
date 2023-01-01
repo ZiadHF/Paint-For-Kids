@@ -7,6 +7,7 @@ PickByFill::PickByFill(ApplicationManager* pApp) :Action(pApp) {
 	totalcount = incorrectcount = correctcount = 0;
 }
 
+//Calculates the Grade of the Kid.
 string PickByFill::GetGrade() {
 	float Grade = ((float)correctcount / (correctcount + incorrectcount)) * 100;
 	if (Grade >= 97)
@@ -28,7 +29,7 @@ void PickByFill::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	//Gets a random number between 0 and FigCount-1
+	//Gets a random number between 0 and FigCount-1 and checks if the figure is filled.
 	int x;
 	CFigure* ptr;
 	do {
@@ -64,6 +65,7 @@ void PickByFill::Execute()
 			if (ctest == c) {
 				correctcount++;
 				pManager->DeleteFigure(ptr);
+				//Updates the interface to show us the figure has disappeared.
 				pManager->UpdateInterface();
 			}
 			else

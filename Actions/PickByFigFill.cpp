@@ -8,6 +8,7 @@ PickByFigFill::PickByFigFill(ApplicationManager* pApp) : Action(pApp) {
 	correctcount = incorrectcount = totalcount = 0;
 }
 
+//Calculates the Grade of the Kid.
 string PickByFigFill::GetGrade() {
 	float Grade = ((float)correctcount / (correctcount + incorrectcount)) * 100;
 	if (Grade >= 97)
@@ -61,12 +62,13 @@ void PickByFigFill::Execute()
 		//Checks if the (x,y) clicked is a figure.
 		if (ptr != NULL)
 		{
-			//We get the type of figure and compare it using function compare() then we make adjustments to the counts.
+			//We get the type of figure and color then compare them using function compare() and ctest then we make adjustments to the counts.
 			color ctest = ptr->GetColor();
 			string type = pManager->GetType(ptr);
 			if ((ctest == c) && !(Type.compare(type))) {
 				correctcount++;
 				pManager->DeleteFigure(ptr);
+				//Updates the interface to show us the figure has disappeared.
 				pManager->UpdateInterface();
 			}
 			else

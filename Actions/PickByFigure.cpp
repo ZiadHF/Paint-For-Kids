@@ -65,9 +65,11 @@ void PickByFigure::Execute()
 		{
 			//We get the type of figure and compare it using function compare() then we make adjustments to the counts.
 			string type = pManager->GetType(ptr);
+			//We use ! as compare gives us 0 if they are the same.
 			if (!(Type.compare(type))) {
 				correctcount++;
 				pManager->DeleteFigure(ptr);
+				//Updates the interface to show us the figure has disappeared.
 				pManager->UpdateInterface();
 			}
 			else

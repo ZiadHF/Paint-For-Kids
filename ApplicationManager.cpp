@@ -182,7 +182,7 @@ void ApplicationManager::DeleteFigure(CFigure* pFig) {
 	if (FigCount > 0) {
 	for(int i = 0; i<FigCount;i++)
 		if (FigList[i] == pFig) {
-			delete FigList[i];
+			//delete FigList[i];
 			FigList[i] = NULL;
 			c = i;
 			FigCount--;
