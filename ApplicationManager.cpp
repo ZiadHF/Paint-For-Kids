@@ -238,9 +238,23 @@ void ApplicationManager::AddToTimeline(string x) {
 	}
 }
 
+void ApplicationManager::ClearDel() {
+	DelFigCount = 0;
+	DelFigInd = 0;
+	for (int i = 0; i < 5; i++)
+		DelFigList[i] = NULL;
+}
 		
 	
-
+void ApplicationManager::ClearRecording() {
+	RecFlag = false;
+	forbidRec = false;
+	for (int i = 0; i < ActionCounter; i++) {
+		delete history[i];
+		history[i] = NULL;
+	}
+	ActionCounter = 0;
+}
 
 void ApplicationManager::AddAction(Action* pAct)
 {
@@ -315,6 +329,7 @@ void ApplicationManager::DeleteFigure(CFigure* pFig) {
 			FigList[i] = NULL;
 			c = i;
 			FigCount--;
+			break;
 		}
 	}
 	for (int i = c; i < FigCount; i++) {
@@ -414,6 +429,12 @@ string ApplicationManager::TempSaveAll() {
 }
 CFigure* ApplicationManager::GetFig(int x) {
 	return FigList[x];
+}
+
+void ApplicationManager::ClearUndo() {
+	for (int i = 0; i < 5; i++)
+		Timeline[i] = "";
+	TIndex = 0;
 }
 
 int ApplicationManager::GetCount(CFigure* ptr,int x) {

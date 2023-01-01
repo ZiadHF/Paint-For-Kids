@@ -8,7 +8,7 @@
 #include "AddSqrAction.h"
 #include "AddHexAction.h"
 #include "AddTriAction.h"
-#include "..\Figures/CCircle.h"
+#include "..\Figures\CCircle.h"
 #include "PickAndHide.h"
 #include "PickByFigFill.h"
 #include "PickByFigure.h"

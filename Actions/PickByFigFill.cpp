@@ -52,10 +52,10 @@ void PickByFigFill::ReadActionParameters()
 		}
 	}
 	else {
+		NoFill = false;
 	do {
 			x = 0 + (rand() % (FigCount - 1));
 			ptr = pManager->GetFig(x);
-			NoFill = false;
 	} while (!(ptr->IsFilled()));
 	}
 	//Gets the count of all figures and the type of the figure.
@@ -63,7 +63,7 @@ void PickByFigFill::ReadActionParameters()
 	Type = pManager->GetType(ptr);
 	totalcount = pManager->GetCount(ptr, FigFill);
 	//Prints the colour to prompt the kid to get all those figures.
-	pOut->PrintMessage("Select all " + ptr->CheckColor(c) + " & " + Type + "s - " + to_string(totalcount - correctcount) + " remaining.");
+	pOut->PrintMessage("Select all " + ptr->CheckColor(c) + " " + Type + "s - " + to_string(totalcount - correctcount) + " remaining.");
 }
 
 //Execute the action
