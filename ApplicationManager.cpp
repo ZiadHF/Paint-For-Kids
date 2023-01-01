@@ -44,6 +44,7 @@ ApplicationManager::ApplicationManager()
 	//Create an array of Deleted figure pointers and sets them to NULL
 	for (int i = 0; i < 5; i++)
 		DelFigList[i] = NULL;
+	AddToTimeline(TempSaveAll());
 }
 
 //==================================================================================//
