@@ -13,7 +13,7 @@ void SwitchToPlay::Execute() {
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
 	//Clears Recording.
-	//pManager->ClearRecording();
+	pManager->ClearRecording();
 	//Outputs message to let the kid know that he switched modes.
 	pOut->PrintMessage("Switched to Play Mode.");
 	//Creates the play toolbar and removes anything in the status bar.

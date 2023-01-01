@@ -17,8 +17,9 @@ void CAll::Execute() {
 	pManager->setSelectedFigure(NULL);
 	filled = false;
 	//Clears Recording and Undo/Redo History
-	//pManager->ClearRecording();
-	//pManager->ClearUndo();
+	pManager->ClearRecording();
+	pManager->ClearDel();
+	pManager->ClearUndo();
 	pOut->PrintMessage("Cleared everything.");
 }
 

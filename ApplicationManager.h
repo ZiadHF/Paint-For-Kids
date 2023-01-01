@@ -37,7 +37,9 @@ public:
 	// -- Action-Related Functions
 
 	//Reads the input command from the user and returns the corresponding action type
-	 
+	void ClearDel();
+	void ClearRecording();
+	void ClearUndo();
 	string TempLoad();
 	string TempSaveAll();
 	void AddToTimeline(string x);

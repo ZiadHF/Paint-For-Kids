@@ -13,6 +13,7 @@ void SwitchToDraw::Execute() {
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
 	//Creates the draw toolbar and removes anything in the status bar.
+	pManager->ClearRecording();
 	pOut->PrintMessage("Switched to Draw Mode.");
 	pOut->CreateDrawToolBar();
 	pManager->UpdateInterface();
