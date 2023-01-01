@@ -8,7 +8,8 @@
 class MoveAction : public Action
 {
 private:
-	
+	bool initiated= false;
+	Point FinalPoint;
 	Point clicked;
 	CFigure* checked = NULL;
 public:
@@ -19,7 +20,7 @@ public:
 
 
 	virtual void Execute();
-
+	
 };
 
 #endif
