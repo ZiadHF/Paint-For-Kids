@@ -143,6 +143,7 @@
     <ClCompile Include="Actions\PickByFigFill.cpp" />
     <ClCompile Include="Actions\PickByFigure.cpp" />
     <ClCompile Include="Actions\PickByFill.cpp" />
+    <ClCompile Include="Actions\RedoAction.cpp" />
     <ClCompile Include="Actions\SaveAction.cpp" />
     <ClCompile Include="Actions\SelectFigure.cpp" />
     <ClCompile Include="Actions\UndoAction.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Actions\PickByFigFill.h" />
     <ClInclude Include="Actions\PickByFigure.h" />
     <ClInclude Include="Actions\PickByFill.h" />
+    <ClInclude Include="Actions\RedoAction.h" />
     <ClInclude Include="Actions\SaveAction.h" />
     <ClInclude Include="Actions\SelectFigure.h" />
     <ClInclude Include="Actions\UndoAction.h" />

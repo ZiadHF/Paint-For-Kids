@@ -27,6 +27,7 @@
 #include "Actions/StartRecordingAction.h"
 #include "Actions/StopRecodringAction.h"
 #include "Actions/PlayRecordingAction.h"
+#include"Actions/RedoAction.h"
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -87,6 +88,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case UNDO:
 		pAct = new UndoAction(this);
+		forbidRec = false;
 		break;
 	case SAVE:
 		pAct = new SaveAction(this);
@@ -94,6 +96,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case LOAD:
 		pAct = new LoadAction(this);
+		forbidRec = true;
+		break;
+	case REDO:
+		pAct = new RedoAction(this);
+		forbidRec = false;
 		break;
 	case DEL:
 		pAct = new DeleteFig(this);
@@ -113,6 +120,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case CLEARALL:
 		pAct = new CAll(this);
+		forbidRec = true;
 		break;
 	case PICKANDHIDE:
 		pAct = new PickAndHide(this);
@@ -192,7 +200,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
-			if (ActType != UNDO && ActType != PLAYREC && ActType != STOPREC && ActType != SWITCH && ActType != SWITCHDRAW && ActType != REDO && ActType != PICKANDHIDE && ActType != PICKFIGURE && ActType != PICKFIGFILL && ActType != PICKFILL && ActType != SAVE && ActType != LOAD && ActType != CLEARALL && ActType != STARTREC) {
+			if (ActType != UNDO && ActType != PLAYREC && ActType != STOPREC && ActType != SWITCH && ActType != SWITCHDRAW && ActType != REDO && ActType != PICKANDHIDE && ActType != PICKFIGURE && ActType != PICKFIGFILL && ActType != PICKFILL && ActType != SAVE && ActType != LOAD && ActType != CLEARALL && ActType != STARTREC&&ActType!=SELECT) {
 				AddToTimeline(TempSaveAll());
 			}
 		
@@ -214,14 +222,24 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	}
 }
 
+string ApplicationManager::TempLoadRedo() {
+	if (TIndex <= 4) {
+		TIndex++;
+		return Timeline[TIndex - 1];
+
+	}
+	else {
+		return Timeline[4];
+	}
+}
+
 void ApplicationManager::AddToTimeline(string x) {
 	if (TIndex != 5 && Timeline[4] == "") {
 		Timeline[TIndex] = x;
 		TIndex++;
 	}
 	else if (TIndex != 5 && Timeline[4] != "") {
-		TIndex++;
-		Timeline[TIndex] = x;
+		Timeline[TIndex++] = x;
 		for (int i = TIndex; i < 5; i++) {
 			Timeline[i] = "";
 		}
@@ -397,11 +415,11 @@ void ApplicationManager::SaveAll(ofstream& OutFile) {
 string ApplicationManager::TempLoad() {
 	if (TIndex != 1) {
 		TIndex--;
-		return Timeline[TIndex-1];
+		return Timeline[TIndex - 1];
 
 	}
 	else {
-		return "";
+		return Timeline[0];
 	}
 }
 

@@ -55,6 +55,7 @@ public:
 	CFigure* GetFig(int x);
 	string GetType(CFigure* ptr);
 	int GetCount(CFigure* ptr,int x);
+	string TempLoadRedo();
 	// -- Figures Management Functions
 
 	void setSelectedFigure(CFigure*);//Setter for selected figure

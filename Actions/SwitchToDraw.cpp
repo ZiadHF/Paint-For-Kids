@@ -8,6 +8,7 @@ void SwitchToDraw::ReadActionParameters() {
 }
 
 void SwitchToDraw::Execute() {
+	pManager->setRecFlag(false);
 	ReadActionParameters();
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
