@@ -17,7 +17,7 @@ public:
 
 	void CHexagon::Load(ifstream& InFile);
 	void Save(ofstream& OutFile);
-
+	string TempSave();
 
 };
 

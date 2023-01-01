@@ -12,7 +12,9 @@ CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 void CSquare::Save(ofstream& OutFile) {
 	OutFile << "SQR" << " " << ID << " " << Center.x << " " << Center.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 }
-
+string CSquare::TempSave() {
+	return "SQR" + string(" ") + to_string(ID) + " " + to_string(Center.x) + " " + to_string(Center.y) +" " + CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") ;
+}
 void CSquare::Draw(Output* pOut) const
 {
 	//Call Output::DrawSqr to draw a Square on the screen	

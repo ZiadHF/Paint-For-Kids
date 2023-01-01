@@ -22,6 +22,10 @@ void CCircle::Save(ofstream& OutFile) {
 	OutFile << "CIRC" << " " << ID << " " << Center.x << " " << Center.y << " " << Radius.x << " " << Radius.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 
 }
+string CCircle::TempSave() {
+	return  "CIRC" + string(" ") + std::to_string(ID) + " " + std::to_string(Center.x) + " " + std::to_string(Center.y) + " " + std::to_string(Radius.x) + " " + std::to_string(Radius.y) + " " + CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL");
+
+}
 //Printing Circle information in status bar
 void CCircle::PrintInfo(Output* pOut) {
 	string data1, data2;

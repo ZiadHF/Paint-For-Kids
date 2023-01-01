@@ -12,11 +12,13 @@ class ApplicationManager
 	enum { MaxFigCount = 200 };	//Max no of figures
 
 private:
+
 	int FigCount,DelFigCount, DelFigInd;//Actual number of figures and Deleted figures
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* DelFigList[5];
 	CFigure* SelectedFig = NULL; //Pointer to the selected figure
-	
+	int TIndex;
+	ActionType Timeline[5] = {EMPTY,EMPTY ,EMPTY ,EMPTY ,EMPTY };
 	//Pointers to Input and Output classes
 	Input* pIn;
 	Output* pOut;
@@ -27,6 +29,7 @@ public:
 
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
+	void AddToTimeline(ActionType x);
 	void DeleteAllFigures();
 	ActionType GetUserAction() const;
 	void ExecuteAction(ActionType); //Creates an action and executes it
@@ -44,5 +47,4 @@ public:
 	void UpdateInterface() const;	//Redraws all the drawing window	
 	void SaveAll(ofstream& OutFile);
 };
-
 #endif

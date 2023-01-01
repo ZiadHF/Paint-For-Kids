@@ -14,6 +14,10 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 void CHexagon::Save(ofstream& OutFile) {
 	OutFile << "HEX" << " " << ID << " " << Center.x << " " << Center.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 }
+string CHexagon::TempSave() {
+	return "HEX" + string(" ") +  std::to_string(ID) + " " + std::to_string(Center.x) + " " + std::to_string(Center.y) + " " + CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL");
+}
+
 
 void CHexagon::Draw(Output* pOut) const
 {

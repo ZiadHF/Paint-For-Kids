@@ -19,7 +19,7 @@ ApplicationManager::ApplicationManager()
 	//Create Input and output
 	pOut = new Output;
 	pIn = pOut->CreateInput();
-
+	TIndex = 0;
 	FigCount = 0;
 	DelFigCount = 0;
 	DelFigInd = 0;
@@ -43,7 +43,7 @@ ActionType ApplicationManager::GetUserAction() const
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
 	Action* pAct = NULL;
-
+	Action* pTact = NULL;
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
@@ -93,14 +93,36 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case STATUS:	//a click on the status bar ==> no action
 		return;
 	}
-
+	
 	//Execute the created action
+	
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
 		delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
+}
+
+void ApplicationManager::AddToTimeline(ActionType x) {
+	if (TIndex != 5 && Timeline[4] == EMPTY) {
+		Timeline[TIndex] = x;
+		TIndex++;
+	}
+	else if(TIndex != 5 && Timeline[4] != EMPTY){
+		TIndex++;
+		Timeline[TIndex] = x;
+		for (int i = TIndex; i < 5; i++) {
+			Timeline[i] = EMPTY;
+		}
+	}
+	else if (TIndex == 5) {
+		for (int i = 0; i < 5; i++) {
+			Timeline[i] = Timeline[i + 1];
+		}
+		Timeline[4] = x;
+	}
+
 }
 //==================================================================================//
 //						Figures Management Functions								//
@@ -212,3 +234,5 @@ ApplicationManager::~ApplicationManager()
 	delete pOut;
 
 }
+
+ 

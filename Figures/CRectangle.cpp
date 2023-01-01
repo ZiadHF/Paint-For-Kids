@@ -14,6 +14,9 @@ CRectangle::CRectangle(Point P1, Point P2, GfxInfo FigureGfxInfo) :CFigure(Figur
 void CRectangle::Save(ofstream& OutFile) {
 	OutFile << "RECT" << " " << ID << " " << Corner1.x << " " << Corner1.y << " " << Corner2.x << " " << Corner2.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 }
+string CRectangle::TempSave() {
+	return  "RECT" + string(" ") + to_string(ID) + " " + to_string(Corner1.x) + " " + to_string(Corner1.y) + " " + to_string(Corner2.x) + " " + to_string(Corner2.y) + " " + CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL");
+}
 
 void CRectangle::Draw(Output* pOut) const
 {
@@ -40,6 +43,7 @@ bool CRectangle::Contains(Point test) {
 	else
 		return false;
 }
+
 void CRectangle::Load(ifstream& InFile) {
 	int x;
 	InFile >> x;

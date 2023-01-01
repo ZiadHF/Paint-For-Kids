@@ -17,7 +17,7 @@ public:
 	void PrintInfo(Output* pOut);
 	void MoveFigure(Point);
 	bool Contains(Point);
-
+	string TempSave();
 	void Save(ofstream& OutFile);
 	void Load(ifstream& InFile);
 };
