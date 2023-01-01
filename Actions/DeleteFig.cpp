@@ -24,7 +24,10 @@ void DeleteFig::ReadActionParameters()
 void DeleteFig::Execute()
 
 {
-	ReadActionParameters();
+	if (!intiated) {
+		ReadActionParameters();
+		intiated = true;
+	}
 	Output* pOut = pManager->GetOutput();
 	if ( checked != NULL) {
 		pManager->AddDelFigure(checked);

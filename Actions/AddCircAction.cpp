@@ -40,9 +40,10 @@ void AddCircAction::ReadActionParameters()
 void AddCircAction::Execute()
 {
 	//This action needs to read some parameters first
-	
-	ReadActionParameters();
-
+	if (!intiated) {
+		ReadActionParameters();
+		intiated = true;
+	}
 	//Create a Circle with the parameters read from the user
 	CCircle* C = new CCircle(Center, Radius, CircGfxInfo);
 

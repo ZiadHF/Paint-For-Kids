@@ -4,7 +4,7 @@ class SaveAction : public Action
 {
 private:
 	string file_name;
-	
+	boolean intiated = false;
 public:
 	SaveAction(ApplicationManager* pApp);
 

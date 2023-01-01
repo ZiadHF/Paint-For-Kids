@@ -23,8 +23,6 @@ void ChangeFillColorAction::ReadActionParameters()
 		PickedColorAction = pIn->GetUserAction();
 	
 	}
-	checked = pManager->getSelectedFigure();
-
 }
 
 //Execute the action
@@ -36,7 +34,11 @@ void ChangeFillColorAction::Execute()
 	Input* pIn = pManager->GetInput();
 	
 	if (pManager->getSelectedFigure() != NULL) {
-		ReadActionParameters();
+		if (!intiated) {
+			ReadActionParameters();
+			intiated = true;
+		}
+		checked = pManager->getSelectedFigure();
 		switch (PickedColorAction) {
 		case RED_COLOR:
 			PickedColor = RED;

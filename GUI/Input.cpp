@@ -31,6 +31,14 @@ string Input::GetString(Output* pO) const
 			pO->PrintMessage(Label);
 	}
 }
+bool Input::MouseClicked(Point& moveto) {
+	buttonstate test;
+	int x, y;
+	test = pWind->GetButtonState(LEFT_BUTTON, moveto.x, moveto.y);
+	if (test == BUTTON_DOWN)
+		return true;
+	return false;
+}
 
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction() const

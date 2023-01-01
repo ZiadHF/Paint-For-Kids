@@ -12,6 +12,7 @@ private:
 	CFigure* checked = NULL;
 	color PickedColor;
 	ActionType PickedColorAction;
+	boolean intiated = false;
 public:
 	ChangeFillColorAction(ApplicationManager* pApp);
 

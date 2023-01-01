@@ -11,7 +11,9 @@ class Input		//The application manager should have a pointer to this class
 {
 private:
 	window* pWind;	//Pointer to the Graphics Window
+
 public:
+	bool MouseClicked(Point&);
 	Input(window* pW);		//Consturctor
 	void GetPointClicked(int& x, int& y) const;//Get coordinate where user clicks
 	string GetString(Output* pO) const;	 //Returns a string entered by the user

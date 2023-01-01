@@ -10,6 +10,7 @@ class AddSqrAction : public Action
 private:
 	Point Center;//Center Corners
 	GfxInfo SqrGfxInfo;
+	boolean intiated = false;
 public:
 	AddSqrAction(ApplicationManager* pApp);
 

@@ -13,6 +13,7 @@ private:
 	CFigure* deletedfigures;
 	Point clicked;
 	CFigure* checked = NULL;
+	boolean intiated = false;
 public:
 	DeleteFig(ApplicationManager* pApp);
 

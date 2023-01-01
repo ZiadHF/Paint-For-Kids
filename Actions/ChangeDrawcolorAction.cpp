@@ -36,7 +36,10 @@ void ChangeDrawColorAction::Execute()
 	Input* pIn = pManager->GetInput();
 
 	if (pManager->getSelectedFigure() != NULL) {
-		ReadActionParameters();
+		if (!intiated) {
+			ReadActionParameters();
+			intiated = true;
+		}
 		switch (PickedColorAction) {
 		case RED_COLOR:
 			PickedColor = RED;
