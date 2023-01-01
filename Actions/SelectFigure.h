@@ -11,6 +11,7 @@ class SelectFigure : public Action
 private:
 	Point clicked;
 	CFigure* checked = NULL;
+	boolean intiated = false;
 public:
 	SelectFigure(ApplicationManager* pApp);
 	

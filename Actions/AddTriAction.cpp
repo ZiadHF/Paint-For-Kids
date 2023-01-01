@@ -42,8 +42,10 @@ void AddTriAction::ReadActionParameters()
 void AddTriAction::Execute()
 {
 	//This action needs to read some parameters first
-	ReadActionParameters();
-
+	if (!intiated) {
+		ReadActionParameters();
+		intiated = true;
+	}
 	//Create a rectangle with the parameters read from the user
 	CTriangle* T = new CTriangle(P1, P2,P3, TriGfxInfo);
 

@@ -10,6 +10,7 @@
 #include "Figures/CHexagon.h"
 #include "Figures/CTriangle.h"
 #include "Figures/CSquare.h"
+#include"Actions/LoadAction.h"
 #include"Actions/SelectFigure.h"
 #include"Actions/DeleteFig.h"
 #include"Actions/MoveAction.h"
@@ -22,7 +23,9 @@
 #include "Actions\PickByFigFill.h"
 #include "Actions\SwitchToDraw.h"
 #include "Actions\SwitchToPlay.h"
-
+#include "Actions/StartRecordingAction.h"
+#include "Actions/StopRecodringAction.h"
+#include "Actions/PlayRecordingAction.h"
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -36,6 +39,7 @@ ApplicationManager::ApplicationManager()
 	//Create an array of figure pointers and set them to NULL		
 	for (int i = 0; i < MaxFigCount; i++)
 		FigList[i] = NULL;
+	//Create an array of Deleted figure pointers and sets them to NULL
 	for (int i = 0; i < 5; i++)
 		DelFigList[i] = NULL;
 }
@@ -59,36 +63,50 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 	case DRAW_RECT:
 		pAct = new AddRectAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_CIRC:
 		pAct = new AddCircAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_SQR:
 		pAct = new AddSqrAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_HEX:
 		pAct = new AddHexAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_TRI:
 		pAct = new AddTriAction(this);
+		forbidRec = false;
 		break;
 	case SELECT:
 		pAct = new SelectFigure(this);
+		forbidRec = false;
 		break;
 	case SAVE:
 		pAct = new SaveAction(this);
+		forbidRec = true;
+		break;
+	case LOAD:
+		pAct = new LoadAction(this);
 		break;
 	case DEL:
 		pAct = new DeleteFig(this);
+		forbidRec = false;
 		break;
 	case MOVE:
 		pAct = new MoveAction(this);
+		forbidRec = false;
 		break;
 	case CHANGEFILL:
 		pAct = new ChangeFillColorAction(this);
+		forbidRec = false;
 		break;
 	case CHANGEBORDERCOLOR:
 		pAct = new ChangeDrawColorAction(this);
+		forbidRec = false;
 		break;
 	case CLEARALL:
 		pAct = new CAll(this);
@@ -141,9 +159,30 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case EXIT:
 		///create ExitAction here
+	case STARTREC:
+		if (FigCount == 0) {
+			pAct = new StartRecordingAction(this);
+			RecFlag = true;
+			forbidRec = true;
+			break;
+		}
+		else {
+			pOut->PrintMessage("Error,Record starts only on at the begining of the program or after clear all");
+			break;
+		}
+	case  STOPREC:
+		pAct = new StopRecordingAction(this);
+		forbidRec = true;
 
 		break;
+	case  PLAYREC:
+		pAct = new PlayRecordingAction(this);
+		forbidRec = true;
 
+		break;
+	case EXIT:
+		///create ExitAction here
+		break;
 	case STATUS:	//a click on the status bar ==> no action
 		return;
 	}
@@ -152,14 +191,44 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		delete pAct;	//You may need to change this line depending to your implementation
+		if (!RecFlag || forbidRec) {
+			delete pAct;	//You may need to change this line depending to your implementation
+			pAct = NULL;
+		}
+		else {
+			AddAction(pAct);
+		}
+	}
+}
+void ApplicationManager::AddAction(Action* pAct)
+{
+	if (ActionCounter < 20) {
+		history[ActionCounter] = pAct;
+		ActionCounter++;
 		pAct = NULL;
 	}
+}
+void ApplicationManager::ExceuteActions() {
+	for (int i = 0; i < ActionCounter; i++) {
+		Sleep(1000);	
+		history[i]->Execute();
+		UpdateInterface();
+	}
+}
+
+void ApplicationManager::setRecFlag(boolean RecControl) {
+	RecFlag = RecControl;
 }
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
-
+// reset figure list
+void ApplicationManager::resetFigList() {
+	for (int i = 0; i < FigCount; i++) {
+		FigList[i] = NULL;
+	}
+	FigCount = 0;
+}
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {
@@ -184,12 +253,17 @@ CFigure* ApplicationManager::GetFigure(Point in) const
 		if (FigList[i]->Contains(in))
 			return FigList[i];
 	}
-	//Add your code here to search for a figure given a point x,y	
-	//Remember that ApplicationManager only calls functions do NOT implement it.
-
 	return NULL;
 }
-// Saving each individual figure by looping on the figlist and accessing its save virtual function
+//Resets FigureList and sets all Figure pointers to NULL,And also setting FigCount to 0 
+void ApplicationManager::DeleteAllFigures() {
+	for (int i = 0; i < FigCount; i++) {
+		delete FigList[i];
+		FigList[i] = NULL;
+	}
+	FigCount = 0;
+}
+//Deletes a figure and adds it to the deleted Figure list, and shifting the figure list left
 void ApplicationManager::DeleteFigure(CFigure* pFig) {
 	int c;
 	if (FigCount > 0) {
@@ -260,10 +334,12 @@ bool ApplicationManager::CheckTri(CFigure* ptr) {
 		return true;
 	return false;
 }
+//FigCount Getter
 int ApplicationManager::getFigCount() 
 {
 	return FigCount;
 }
+//Adding deleted figures to deleted figure list
 void ApplicationManager::AddDelFigure(CFigure* pFig) {
 	if (DelFigInd < 5) {
 		DelFigList[DelFigInd++] = pFig;
@@ -274,6 +350,7 @@ void ApplicationManager::AddDelFigure(CFigure* pFig) {
 	}
 	DelFigCount++;
 }
+// Saving each individual figure by looping on the figlist and accessing its save virtual function
 void ApplicationManager::SaveAll(ofstream& OutFile) {
 	OutFile << FigCount << endl;
 	for (int i = 0; i < FigCount; i++) {

@@ -11,6 +11,7 @@ private:
 	Point vert2;
 	Point vert3;
 public:
+	CTriangle();
 	CTriangle(Point, Point, Point, GfxInfo FigureGfxInfo);
 	virtual void Draw(Output* pOut) const;
 	void CTriangle::PrintInfo(Output* pOut);
@@ -18,6 +19,7 @@ public:
 	bool CTriangle::Contains(Point);
 
 	void Save(ofstream& OutFile);
+	void Load(ifstream& InFile);
 
 };
 

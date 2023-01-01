@@ -214,6 +214,15 @@
     <ClCompile Include="Actions\SwitchToPlay.cpp">
       <Filter>Action Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\StartRecordingAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\StopRecordingAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\PlayRecordingAction.cpp">
+      <Filter>Action Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -362,6 +371,15 @@
       <Filter>Action Classes</Filter>
     </ClInclude>
     <ClInclude Include="Actions\SwitchToPlay.h">
+     <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\StartRecordingAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\StopRecodringAction.h">
+      <Filter>Action Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\PlayRecordingAction.h">
       <Filter>Action Classes</Filter>
     </ClInclude>
   </ItemGroup>
