@@ -34,6 +34,22 @@ bool CSquare::Contains(Point test) {
 	else
 		return false;
 }
+void CSquare::TempLoad(istringstream& InFile) {
+	 
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
+}
 void CSquare::Load(ifstream& InFile) {
 	int x;
 	InFile >> x;

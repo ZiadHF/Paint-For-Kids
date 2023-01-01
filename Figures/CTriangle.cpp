@@ -42,6 +42,30 @@ bool CTriangle::Contains(Point test) {
 	return cond;
 
 }
+void CTriangle::TempLoad(istringstream& InFile) {
+	 
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	vert1.x = x;
+	InFile >> x;
+	vert1.y = x;
+	InFile >> x;
+	vert2.x = x;
+	InFile >> x;
+	vert2.y = x;
+	InFile >> x;
+	vert3.x = x;
+	InFile >> x;
+	vert3.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
+}
 void CTriangle::Load(ifstream& InFile) {
 	int x;
 	InFile >> x;

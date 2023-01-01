@@ -44,6 +44,26 @@ bool CCircle::Contains(Point test) {
 	else
 		return false;
 }
+void CCircle::TempLoad(istringstream& InFile) {
+	int x;
+	 
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	InFile >> x;
+	Radius.x = x;
+	InFile >> x;
+	Radius.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
+}
 void CCircle::Load(ifstream& InFile) {
 	int x;
 	InFile >> x;

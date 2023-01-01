@@ -14,7 +14,7 @@ public:
 	void CHexagon::PrintInfo(Output* pOut);
 	void MoveFigure(Point);
 	bool Contains(Point);
-
+	void TempLoad(istringstream& InFile);
 	void CHexagon::Load(ifstream& InFile);
 	void Save(ofstream& OutFile);
 	string TempSave();

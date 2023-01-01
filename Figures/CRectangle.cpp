@@ -43,7 +43,29 @@ bool CRectangle::Contains(Point test) {
 	else
 		return false;
 }
+void CRectangle::TempLoad(istringstream& InFile) {
+	int x;
+	 
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Corner1.x = x;
+	InFile >> x;
+	Corner1.y = x;
+	InFile >> x;
+	Corner2.x = x;
+	InFile >> x;
+	Corner2.y = x;
+	Width = abs(Corner2.x - Corner1.x);
+	Height = abs(Corner2.y - Corner1.y);
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
 
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
+}
 void CRectangle::Load(ifstream& InFile) {
 	int x;
 	InFile >> x;

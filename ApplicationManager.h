@@ -18,7 +18,7 @@ private:
 	CFigure* DelFigList[5];
 	CFigure* SelectedFig = NULL; //Pointer to the selected figure
 	int TIndex;
-	ActionType Timeline[5] = {EMPTY,EMPTY ,EMPTY ,EMPTY ,EMPTY };
+	string Timeline[5] = {"","" ,"" ,"" ,""};
 	//Pointers to Input and Output classes
 	Input* pIn;
 	Output* pOut;
@@ -29,7 +29,10 @@ public:
 
 	// -- Action-Related Functions
 	//Reads the input command from the user and returns the corresponding action type
-	void AddToTimeline(ActionType x);
+	 
+	string TempLoad();
+	string TempSaveAll();
+	void AddToTimeline(string x);
 	void DeleteAllFigures();
 	ActionType GetUserAction() const;
 	void ExecuteAction(ActionType); //Creates an action and executes it

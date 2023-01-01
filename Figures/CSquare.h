@@ -15,6 +15,7 @@ public:
 	virtual void Draw(Output* pOut) const;
 	void CSquare::PrintInfo(Output* pOut);
 	void MoveFigure(Point);
+	void TempLoad(istringstream& InFile);
 	bool CSquare::Contains(Point);
 	string TempSave();
 	void Save(ofstream& OutFile);

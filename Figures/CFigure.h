@@ -5,6 +5,7 @@
 #include "..\defs.h"
 #include "..\GUI\Output.h"
 #include <fstream>
+#include <sstream>
 //Base class for all figures
 class CFigure
 {
@@ -32,6 +33,7 @@ public:
 	virtual void MoveFigure(Point)=0;
 	virtual void Draw(Output* pOut) const = 0;		//Draw the figure
 	virtual string TempSave() = 0;
+	virtual void TempLoad(istringstream& InFile) = 0;
 	void setID(int);
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	void ChngFillClr(color Fclr);	//changes the figure's filling color

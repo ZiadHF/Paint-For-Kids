@@ -6,6 +6,7 @@
 #include"Actions/AddTriAction.h"
 #include "Actions/SaveAction.h"
 #include"Figures/CCircle.h"
+#include"Actions/UndoAction.h"
 #include"Actions/LoadAction.h"
 #include"Actions/SelectFigure.h"
 #include"Actions/DeleteFig.h"
@@ -43,7 +44,6 @@ ActionType ApplicationManager::GetUserAction() const
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
 	Action* pAct = NULL;
-	Action* pTact = NULL;
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
@@ -66,7 +66,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SELECT:
 		pAct = new SelectFigure(this);
 		break;
-
+	case UNDO:
+		pAct = new UndoAction(this);
+		break;
 	case SAVE:
 		pAct = new SaveAction(this);
 		break;
@@ -99,28 +101,35 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
+		if (ActType != UNDO) {
+			AddToTimeline(TempSaveAll());	
+		}
 		delete pAct;	//You may need to change this line depending to your implementation
 		pAct = NULL;
 	}
 }
 
-void ApplicationManager::AddToTimeline(ActionType x) {
-	if (TIndex != 5 && Timeline[4] == EMPTY) {
+void ApplicationManager::AddToTimeline(string x) {
+	if (TIndex != 5 && Timeline[4] == "") {
 		Timeline[TIndex] = x;
 		TIndex++;
 	}
-	else if(TIndex != 5 && Timeline[4] != EMPTY){
+	else if(TIndex != 5 && Timeline[4] != ""){
 		TIndex++;
 		Timeline[TIndex] = x;
 		for (int i = TIndex; i < 5; i++) {
-			Timeline[i] = EMPTY;
+			Timeline[i] = "";
 		}
 	}
 	else if (TIndex == 5) {
 		for (int i = 0; i < 5; i++) {
-			Timeline[i] = Timeline[i + 1];
+			if (i == 4) {
+				Timeline[4] = x;
+			}
+			else {
+				Timeline[i] = Timeline[i + 1];
+			}
 		}
-		Timeline[4] = x;
 	}
 
 }
@@ -199,6 +208,25 @@ void ApplicationManager::SaveAll(ofstream& OutFile) {
 		FigList[i]->Save(OutFile);
 	}
 
+}
+
+string ApplicationManager::TempLoad() {
+	if (TIndex != 1) {
+		TIndex--;
+		return Timeline[TIndex-1];
+
+	}
+	else {
+		return "";
+	}
+}
+
+string ApplicationManager::TempSaveAll() {
+	string save = to_string(getFigCount())+"\n";
+	for (int i = 0; i < FigCount; i++) {
+		save = save + FigList[i]->TempSave() +"\n";
+	}
+	return save;
 }
 //==================================================================================//
 //							Interface Management Functions							//
