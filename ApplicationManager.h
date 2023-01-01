@@ -41,7 +41,6 @@ public:
 	string TempLoad();
 	string TempSaveAll();
 	void AddToTimeline(string x);
-	ActionType GetUserAction() const;
 	void AddAction(Action* pAct);
 	ActionType GetUserAction() const;//Reads the input command from the user and returns the corresponding action type
 	void DeleteAllFigures();//Clears all figures from figure list

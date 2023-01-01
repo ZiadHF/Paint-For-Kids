@@ -192,11 +192,25 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		if (ActType != UNDO) {
-			AddToTimeline(TempSaveAll());	
+			if (ActType != UNDO && ActType != PLAYREC && ActType != STOPREC && ActType != SWITCH && ActType != SWITCHDRAW && ActType != REDO && ActType != PICKANDHIDE && ActType != PICKFIGURE && ActType != PICKFIGFILL && ActType != PICKFILL && ActType != SAVE && ActType != LOAD && ActType != CLEARALL && ActType != STARTREC) {
+				AddToTimeline(TempSaveAll());
+			}
+		
+		if (!RecFlag || forbidRec) 
+		{
+			
+			delete pAct;	//You may need to change this line depending to your implementation
+			pAct = NULL;
 		}
-		delete pAct;	//You may need to change this line depending to your implementation
-		pAct = NULL;
+		else 
+		{
+			AddAction(pAct);
+		}
+			
+			
+
+
+		
 	}
 }
 
@@ -205,7 +219,7 @@ void ApplicationManager::AddToTimeline(string x) {
 		Timeline[TIndex] = x;
 		TIndex++;
 	}
-	else if(TIndex != 5 && Timeline[4] != ""){
+	else if (TIndex != 5 && Timeline[4] != "") {
 		TIndex++;
 		Timeline[TIndex] = x;
 		for (int i = TIndex; i < 5; i++) {
@@ -222,16 +236,12 @@ void ApplicationManager::AddToTimeline(string x) {
 			}
 		}
 	}
-
-		if (!RecFlag || forbidRec) {
-			delete pAct;	//You may need to change this line depending to your implementation
-			pAct = NULL;
-		}
-		else {
-			AddAction(pAct);
-		}
-	}
 }
+
+		
+	
+
+
 void ApplicationManager::AddAction(Action* pAct)
 {
 	if (ActionCounter < 20) {
@@ -396,11 +406,12 @@ string ApplicationManager::TempLoad() {
 }
 
 string ApplicationManager::TempSaveAll() {
-	string save = to_string(getFigCount())+"\n";
+	string save = to_string(getFigCount()) + "\n";
 	for (int i = 0; i < FigCount; i++) {
-		save = save + FigList[i]->TempSave() +"\n";
+		save = save + FigList[i]->TempSave() + "\n";
 	}
 	return save;
+}
 CFigure* ApplicationManager::GetFig(int x) {
 	return FigList[x];
 }

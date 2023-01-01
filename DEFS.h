@@ -36,6 +36,7 @@ enum ActionType //The actions supported (you can add more if needed)
 	//EXPLAY,
 	PICKANDHIDE,
 	EMPTY,	//A click on empty place in the toolbar
+
 	PICKFIGURE,
 	PICKFILL,
 	PICKFIGFILL,
