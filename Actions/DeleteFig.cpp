@@ -22,18 +22,15 @@ void DeleteFig::ReadActionParameters()
 
 //Execute the action
 void DeleteFig::Execute()
-
 {
-	if (!intiated) {
 		ReadActionParameters();
-		intiated = true;
-	}
 	Output* pOut = pManager->GetOutput();
 	if ( checked != NULL) {
 		pManager->AddDelFigure(checked);
 		pManager->DeleteFigure(checked);
 		checked = NULL;
 		pManager->setSelectedFigure(checked);
+		pOut->ClearStatusBar();
 	}
 	else {
 		pOut->PrintMessage("Please Select a figure first");

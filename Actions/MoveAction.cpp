@@ -65,6 +65,7 @@ void MoveAction::Execute()
         checked = pManager->getSelectedFigure();
         if (checked != NULL) {
             checked->MoveFigure(FinalPoint);
+            pOut->ClearStatusBar();
         }
         else {
             pOut->PrintMessage("Please Select a figure first");

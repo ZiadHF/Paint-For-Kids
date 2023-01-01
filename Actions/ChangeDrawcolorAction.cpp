@@ -34,37 +34,49 @@ void ChangeDrawColorAction::Execute()
 
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-
-	if (pManager->getSelectedFigure() != NULL) {
-		if (!intiated) {
+	if (!intiated) {
+		intiated = true;
+		if (pManager->getSelectedFigure() != NULL) {
 			ReadActionParameters();
-			intiated = true;
+			switch (PickedColorAction) {
+			case RED_COLOR:
+				PickedColor = RED;
+				break;
+			case BLUE_COLOR:
+				PickedColor = BLUE;
+				break;
+			case GREEN_COLOR:
+				PickedColor = GREEN;
+				break;
+			case  ORANGE_COLOR:
+				PickedColor = ORANGE;
+				break;
+			case YELLOW_COLOR:
+				PickedColor = YELLOW;
+				break;
+			case BLACK_COLOR:
+				PickedColor = BLACK;
+				break;
+			}
+			checked->ChngDrawClr(PickedColor);
+			UI.DrawColor = PickedColor;
+			FinalColor = PickedColor;
+			pOut->ClearStatusBar();
 		}
-		switch (PickedColorAction) {
-		case RED_COLOR:
-			PickedColor = RED;
-			break;
-		case BLUE_COLOR:
-			PickedColor = BLUE;
-			break;
-		case GREEN_COLOR:
-			PickedColor = GREEN;
-			break;
-		case  ORANGE_COLOR:
-			PickedColor = ORANGE;
-			break;
-		case YELLOW_COLOR:
-			PickedColor = YELLOW;
-			break;
-		case BLACK_COLOR:
-			PickedColor = BLACK;
-			break;
+		else {
+			pOut->PrintMessage("Please Select a figure first.");
 		}
-		checked->ChngDrawClr(PickedColor);
-		UI.DrawColor = PickedColor;
-		pOut->ClearStatusBar();
 	}
 	else {
-		pOut->PrintMessage("Please Select a figure first.");
+		if (pManager->getSelectedFigure() != NULL) {
+			checked = pManager->getSelectedFigure();
+			checked->ChngDrawClr(FinalColor);
+			UI.FillColor = FinalColor;
+			
+		}
+		else {
+			pOut->PrintMessage("Please Select a figure first.");
+
+		}
 	}
 }

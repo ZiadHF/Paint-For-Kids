@@ -8,11 +8,11 @@
 class ChangeFillColorAction : public Action
 {
 private:
-	
+	color FinalColor;
 	CFigure* checked = NULL;
 	color PickedColor;
 	ActionType PickedColorAction;
-	boolean intiated = false;
+	bool intiated = false;
 public:
 	ChangeFillColorAction(ApplicationManager* pApp);
 
