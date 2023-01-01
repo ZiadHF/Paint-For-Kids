@@ -1,9 +1,8 @@
 #pragma once
-#include "Actions\Action.h"
+#include "Action.h"
 class PickAndHide : public Action
 {
 public:
-	bool IsPicked;
 	PickAndHide(ApplicationManager* pApp);
 	void ReadActionParameters();
 	void Execute();

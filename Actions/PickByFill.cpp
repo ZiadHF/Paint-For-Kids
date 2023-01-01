@@ -1,30 +1,27 @@
 #include "PickByFill.h"
-
-#include "ApplicationManager.h"-
-#include "GUI\input.h"
-#include "GUI\Output.h"
+#include "..\ApplicationManager.h"-
+#include "..\GUI\input.h"
+#include "..\GUI\Output.h"
 
 PickByFill::PickByFill(ApplicationManager* pApp) :Action(pApp) {
-	totalcount = 0;
-	incorrectcount = 0;
-	correctcount = 0;
-	isfilled = false;
+	totalcount = incorrectcount = correctcount = 0;
 }
 
-char PickByFill::GetGrade() {
-	float Grade = ((float)correct / totalcount) * 100;
+//Calculates the Grade of the Kid.
+string PickByFill::GetGrade() {
+	float Grade = ((float)correctcount / (correctcount + incorrectcount)) * 100;
 	if (Grade >= 97)
-		return 'S';
+		return "S";
 	else if (Grade >= 89)
-		return 'A';
+		return "A";
 	else if (Grade >= 76)
-		return 'B';
+		return "B";
 	else if (Grade >= 67)
-		return 'C';
+		return "C";
 	else if (Grade >= 60)
-		return 'D';
+		return "D";
 	else
-		return 'F';
+		return "F";
 }
 
 void PickByFill::ReadActionParameters()
@@ -32,41 +29,78 @@ void PickByFill::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-
-	pOut->PrintMessage("Select a color to begin.");
-
-	//Read Center and store in point Center
-	pIn->GetPointClicked(x, y);
-
-
-	/*
-	Get the color, with total count of the color
-	if clicked on a figure, check if selected figure is the same color.
-	If same color, increase count of correct, else increase count of incorrect
-	Stops when count == total count (either with for loop or while)
-	then outputs grade to user with his correct count and **OPTIONAL** a motivational msg (you'll do better next time), etc..
-
-	**NEEDS FUNCTIONS:
-	1-CHECKING IF POINT CLICKED IS A FIGURE
-	2-CHECKING IF FIGURE IS FILLED
-	3-CHECKING COLOR IS THE SAME
-	4-A WAY TO GET THE COUNT OF ALL FIGURES IN THE DRAW AREA
-	**/
-	pOut->ClearStatusBar();
-
+	//Checks if there are no filled elements in the draw area
+	if (pManager->CheckNoFill()) {
+		NoFill = true;
+		return;
+	}
+	//Gets a random number between 0 and FigCount-1 and checks if the figure is filled.
+	int x;
+	int FigCount = pManager->getFigCount();
+	CFigure* ptr;
+	if (FigCount == 1)
+	{
+		x = 0;
+		ptr = pManager->GetFig(x);
+		if (ptr->IsFilled()) {
+			NoFill = false;
+		}
+		else {
+			NoFill = true;
+			return;
+		}
+	}
+	else {
+		do {
+			x = 0 + ((rand() % FigCount - 1));
+			ptr = pManager->GetFig(x);
+			NoFill = false;
+		} while (!(ptr->IsFilled()));
+	}
+		//Gets the count of all figures and the type of the figure.
+		totalcount = pManager->GetCount(ptr, Fill);
+		c = ptr->GetColor();
+		//Prints the colour to prompt the kid to get all those figures.
+		pOut->PrintMessage("Select all " + ptr->CheckColor(c) + " Figures - " + to_string(totalcount - correctcount) + " remaining.");
 }
 
 //Execute the action
 void PickByFill::Execute()
 {
 	//This action needs to read some parameters first
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
 	ReadActionParameters();
-
-	//Create a Hexagon with the parameters read from the user
-	//PickByFill* Pick = new PickByFill();
-
-	//Add the Hexagon to the list of figures
-	//pManager->AddFigure(H);
+	if (NoFill) {
+		pOut->PrintMessage("Pick By Fill isn't possible as there are no filled figures in the draw area.");
+		return;
+	}
+	//While condition that stops when all correct figures are removed.
+	while (correctcount != totalcount) {
+		Point p2;
+		pIn->GetPointClicked(p2.x, p2.y);
+		CFigure* ptr = pManager->GetFigure(p2);
+		//Checks if the (x,y) clicked is a figure.
+		if (ptr != NULL)
+		{
+			//We get the type of figure and compare it using function compare() then we make adjustments to the counts.
+			color ctest = ptr->GetColor();
+			if (ctest == c) {
+				correctcount++;
+				pManager->DeleteFigure(ptr);
+				//Updates the interface to show us the figure has disappeared.
+				pManager->UpdateInterface();
+				pOut->PrintMessage("Select all " + ptr->CheckColor(c) + " Figures - " + to_string(totalcount - correctcount) + " remaining.");
+			}
+			else {
+				incorrectcount++;
+				pOut->PrintMessage("Select all " + ptr->CheckColor(c) + " Figures - " + to_string(totalcount - correctcount) + " remaining.");
+			}
+		}
+	}
+	//Gets the grade of the kid and prints.
+	string Grade = GetGrade();
+	pOut->PrintMessage("You got " + Grade + " and you got " + to_string(correctcount) + " correct clicks out of " + to_string(correctcount + incorrectcount) + " total clicks");
 }
 
 PickByFill::~PickByFill() {

@@ -1,6 +1,6 @@
 #pragma once
 #include "PickAndHide.h"
-#include "Actions\Action.h"
+#include "Action.h"
 class PickByFigure : public Action
 {
 	int correctcount, incorrectcount, totalcount;
@@ -9,7 +9,7 @@ public:
 	PickByFigure(ApplicationManager* pApp);
 	void ReadActionParameters();
 	void Execute();
-	char GetGrade();
+	string GetGrade();
 	~PickByFigure();
 };
 

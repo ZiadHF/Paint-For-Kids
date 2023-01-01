@@ -6,12 +6,23 @@
 #include"Actions/AddTriAction.h"
 #include "Actions/SaveAction.h"
 #include"Figures/CCircle.h"
+#include "Figures/CRectangle.h"
+#include "Figures/CHexagon.h"
+#include "Figures/CTriangle.h"
+#include "Figures/CSquare.h"
 #include"Actions/LoadAction.h"
 #include"Actions/SelectFigure.h"
 #include"Actions/DeleteFig.h"
 #include"Actions/MoveAction.h"
 #include"Actions/ChangeFillColorAction.h"
 #include"Actions/ChangeDrawColorAction.h"
+#include "Actions\CAll.h"
+#include "Actions\PickAndHide.h"
+#include "Actions\PickByFigure.h"
+#include "Actions\PickByFill.h"
+#include "Actions\PickByFigFill.h"
+#include "Actions\SwitchToDraw.h"
+#include "Actions\SwitchToPlay.h"
 #include "Actions/StartRecordingAction.h"
 #include "Actions/StopRecodringAction.h"
 #include "Actions/PlayRecordingAction.h"
@@ -97,6 +108,57 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new ChangeDrawColorAction(this);
 		forbidRec = false;
 		break;
+	case CLEARALL:
+		pAct = new CAll(this);
+		break;
+	case PICKANDHIDE:
+		pAct = new PickAndHide(this);
+		IsPicked = true;
+		break;
+	case PICKFILL:
+		if (IsPicked) {
+			pAct = new PickByFill(this);
+			IsPicked = false;
+			break;
+		}
+		pAct = NULL;
+		break;
+	case PICKFIGURE:
+		if (IsPicked) {
+			pAct = new PickByFigure(this);
+			IsPicked = false;
+			break;
+		}
+		pAct = NULL;
+		break;
+	case PICKFIGFILL:
+		if (IsPicked) {
+			pAct = new PickByFigFill(this);
+			IsPicked = false;
+			break;
+		}
+		pAct = NULL;
+		break;
+	case SWITCH:
+		if (FigCount == 0)
+		{
+			pOut->PrintMessage("You cant switch to draw mode as there are no figures in draw area.");
+			pAct = NULL;
+			break;
+		}
+		else {
+			//Save Function
+			pAct = new SwitchToPlay(this);
+			//Outputs message to let the kid know that he switched modes.
+			pOut->PrintMessage("Switched to Play Mode.");
+			break;
+		}
+	case SWITCHDRAW:
+		//Load Function (delete file)
+		pAct = new SwitchToDraw(this);
+		break;
+	case EXIT:
+		///create ExitAction here
 	case STARTREC:
 		if (FigCount == 0) {
 			pAct = new StartRecordingAction(this);
@@ -207,6 +269,7 @@ void ApplicationManager::DeleteFigure(CFigure* pFig) {
 	if (FigCount > 0) {
 	for(int i = 0; i<FigCount;i++)
 		if (FigList[i] == pFig) {
+			//delete FigList[i];
 			FigList[i] = NULL;
 			c = i;
 			FigCount--;
@@ -215,6 +278,61 @@ void ApplicationManager::DeleteFigure(CFigure* pFig) {
 	for (int i = c; i < FigCount; i++) {
 		FigList[i] = FigList[i + 1];
 	}
+}
+void ApplicationManager::DeleteAllFigures() {
+	for (int i = 0; i < FigCount; i++)
+	{
+		delete FigList[i];
+		FigList[i] = NULL;
+	}
+	FigCount = 0;
+}
+bool ApplicationManager::CheckNoFill() {
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->IsFilled())
+			return false;
+	}
+	return true;
+}
+bool ApplicationManager::CheckCircle(CFigure* ptr) {
+	CCircle* c;
+	c = dynamic_cast <CCircle*> (ptr);
+	if (c != NULL)
+		return true;
+	return false;
+}
+
+bool ApplicationManager::CheckRect(CFigure* ptr) {
+	CRectangle* c;
+	c = dynamic_cast <CRectangle*> (ptr);
+	if (c != NULL)
+		return true;
+	return false;
+}
+
+bool ApplicationManager::CheckSquare(CFigure* ptr) {
+	CSquare* c;
+	c = dynamic_cast <CSquare*> (ptr);
+	if (c != NULL)
+		return true;
+	return false;
+}
+
+bool ApplicationManager::CheckHex(CFigure* ptr) {
+	CHexagon* c;
+	c = dynamic_cast <CHexagon*> (ptr);
+	if (c != NULL)
+		return true;
+	return false;
+}
+
+bool ApplicationManager::CheckTri(CFigure* ptr) {
+	CTriangle* c;
+	c = dynamic_cast <CTriangle*> (ptr);
+	if (c != NULL)
+		return true;
+	return false;
 }
 //FigCount Getter
 int ApplicationManager::getFigCount() 
@@ -240,6 +358,110 @@ void ApplicationManager::SaveAll(ofstream& OutFile) {
 	}
 
 }
+CFigure* ApplicationManager::GetFig(int x) {
+	return FigList[x];
+}
+
+int ApplicationManager::GetCount(CFigure* ptr,int x) {
+	int totalcount = 0;
+	if (x == 0) {
+		for (int i = 0; i < FigCount; i++)
+		{
+			if (CheckCircle(ptr)) {
+				if ((dynamic_cast <CCircle*> (FigList[i])) != NULL) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckHex(ptr)) {
+				if ((dynamic_cast <CHexagon*> (FigList[i])) != NULL) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckRect(ptr)) {
+				if ((dynamic_cast <CRectangle*> (FigList[i])) != NULL) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckSquare(ptr)) {
+				if ((dynamic_cast <CSquare*> (FigList[i])) != NULL) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckTri(ptr)) {
+				if ((dynamic_cast <CTriangle*> (FigList[i])) != NULL) {
+					totalcount++;
+					continue;
+				}
+			}
+		}
+	}
+	else if (x==1) {
+		for (int i = 0; i < FigCount; i++)
+		{
+			if (FigList[i]->GetColor() == ptr->GetColor())
+				totalcount++;
+		}
+	}
+	else if (x==2) {
+		for (int i = 0; i < FigCount; i++)
+		{
+			if (CheckCircle(ptr)) {
+				if (((dynamic_cast <CCircle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckHex(ptr)) {
+				if (((dynamic_cast <CHexagon*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckRect(ptr)) {
+				if (((dynamic_cast <CRectangle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckSquare(ptr)) {
+				if (((dynamic_cast <CSquare*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
+					totalcount++;
+					continue;
+				}
+			}
+			if (CheckTri(ptr)) {
+				if (((dynamic_cast <CTriangle*> (FigList[i])) != NULL) && (FigList[i]->GetColor() == ptr->GetColor())) {
+					totalcount++;
+					continue;
+				}
+			}
+		}
+	}
+	return totalcount;
+}
+
+
+string ApplicationManager::GetType(CFigure* ptr) {
+	if (CheckCircle(ptr)) {
+		return "Circle";
+	}
+	if (CheckHex(ptr)) {
+		return "Hexagon";
+	}
+	if (CheckRect(ptr)) {
+		return "Rectangle";
+	}
+	if (CheckSquare(ptr)) {
+		return "Square";
+	}
+	if (CheckTri(ptr)) {
+		return "Triangle";
+	}
+}
 //==================================================================================//
 //							Interface Management Functions							//
 //==================================================================================//
@@ -251,7 +473,7 @@ void ApplicationManager::UpdateInterface() const
 	for (int i = 0; i < FigCount; i++) {
 		FigList[i]->Draw(pOut);
 	}		//Call Draw function (virtual member fn)
-	pOut->CreateDrawToolBar();
+	//pOut->CreateDrawToolBar();
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the input

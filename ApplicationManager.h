@@ -13,6 +13,7 @@ class ApplicationManager
 	enum { MaxFigCount = 200 };	//Max no of figures
 
 private:
+	bool IsPicked = false;
 	int FigCount,DelFigCount, DelFigInd;//Actual number of figures , Deleted figures and Deleted figure indicies
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* DelFigList[5];//List of last 5 deleted figures(Array of pointers)
@@ -39,6 +40,18 @@ public:
 	void DeleteAllFigures();//Clears all figures from figure list
 
 	void ExecuteAction(ActionType); //Creates an action and executes it
+	CFigure* getSelectedFigure();
+	void DeleteAllFigures();
+	void setSelectedFigure(CFigure*);
+	bool CheckNoFill();
+	bool CheckCircle(CFigure* ptr);
+	bool CheckRect(CFigure* ptr);
+	bool CheckTri(CFigure* ptr);
+	bool CheckHex(CFigure* ptr);
+	bool CheckSquare(CFigure* ptr);
+	CFigure* GetFig(int x);
+	string GetType(CFigure* ptr);
+	int GetCount(CFigure* ptr,int x);
 	// -- Figures Management Functions
 
 	void setSelectedFigure(CFigure*);//Setter for selected figure

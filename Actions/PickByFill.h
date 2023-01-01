@@ -1,15 +1,15 @@
 #pragma once
-#include "Actions\Action.h"
+#include "Action.h"
 class PickByFill : public Action
 {
 	int correctcount, incorrectcount, totalcount;
-	bool correct, isfilled;
-	int x, y;
+	bool NoFill;
+	color c;
 public:
 	PickByFill(ApplicationManager* pApp);
 	~PickByFill();
-	char GetGrade();
-	virtual void ReadActionParameters();
-	virtual void Execute();
+	string GetGrade();
+	void ReadActionParameters();
+	void Execute();
 };
 

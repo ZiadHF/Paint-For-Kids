@@ -24,6 +24,8 @@ public:
 	CFigure();
 
 	CFigure(GfxInfo FigureGfxInfo);
+	void SetFilled(color c);
+	bool IsFilled() const;
 	
 	string CheckColor(color x);//Returns color as String
 	
@@ -42,6 +44,16 @@ public:
 	void ChngDrawClr(color Dclr);	//changes the figure's drawing color
 	
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
+	color GetColor();
+	color StringToColor(string x);
+	string CheckColor(color x);
+
+	///The following functions should be supported by the figure class
+	///It should be overridden by each inherited figure
+
+	///Decide the parameters that you should pass to each function	
+
+
 	
 	virtual bool Contains(Point) = 0;//Virtual function for checking if the clicked point is contained in shape
 	
