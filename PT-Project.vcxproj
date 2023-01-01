@@ -145,6 +145,7 @@
     <ClCompile Include="Actions\PickByFill.cpp" />
     <ClCompile Include="Actions\SaveAction.cpp" />
     <ClCompile Include="Actions\SelectFigure.cpp" />
+    <ClCompile Include="Actions\UndoAction.cpp" />
     <ClCompile Include="Actions\SwitchToDraw.cpp" />
     <ClCompile Include="Actions\SwitchToPlay.cpp" />
     <ClCompile Include="Actions\PlayRecordingAction.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="Actions\PickByFill.h" />
     <ClInclude Include="Actions\SaveAction.h" />
     <ClInclude Include="Actions\SelectFigure.h" />
+    <ClInclude Include="Actions\UndoAction.h" />
     <ClInclude Include="Actions\SwitchToDraw.h" />
     <ClInclude Include="Actions\SwitchToPlay.h" />
     <ClInclude Include="Actions\PlayRecordingAction.h" />

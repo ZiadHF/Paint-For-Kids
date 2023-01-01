@@ -22,6 +22,8 @@ void SaveAction::Execute() {
 	pManager->SaveAll(saveFile);
 	saveFile.close();
 }
+
+
 string SaveAction::CheckColor(color x) {
 
 	if (x == BLACK) {

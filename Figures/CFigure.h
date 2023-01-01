@@ -5,6 +5,7 @@
 #include "..\defs.h"
 #include "..\GUI\Output.h"
 #include <fstream>
+#include <sstream>
 //Base class for all figures
 class CFigure
 {
@@ -34,6 +35,9 @@ public:
 	void SetSelected(bool s);	//select/unselect the figure
 	
 	bool IsSelected() const;	//check whether fig is selected
+
+	virtual string TempSave() = 0;
+	virtual void TempLoad(istringstream& InFile) = 0;
 	
 	virtual void MoveFigure(Point)=0;//Moves Figure
 	

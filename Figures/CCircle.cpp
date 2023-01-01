@@ -23,6 +23,10 @@ void CCircle::Save(ofstream& OutFile) {
 	OutFile << "CIRC" << " " << ID << " " << Center.x << " " << Center.y << " " << Radius.x << " " << Radius.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 
 }
+string CCircle::TempSave() {
+	return  "CIRC" + string(" ") + std::to_string(ID) + " " + std::to_string(Center.x) + " " + std::to_string(Center.y) + " " + std::to_string(Radius.x) + " " + std::to_string(Radius.y) + " " + CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL");
+
+}
 //Printing Circle information in status bar
 void CCircle::PrintInfo(Output* pOut) {
 	string data1, data2;
@@ -41,6 +45,26 @@ bool CCircle::Contains(Point test) {
 		return true;
 	else
 		return false;
+}
+void CCircle::TempLoad(istringstream& InFile) {
+	int x;
+	 
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	InFile >> x;
+	Radius.x = x;
+	InFile >> x;
+	Radius.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
 }
 //Loads Circle information from a file 
 void CCircle::Load(ifstream& InFile) {

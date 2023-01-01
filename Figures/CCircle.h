@@ -12,7 +12,8 @@ private:
 public:
 	CCircle();
 	CCircle(Point, Point, GfxInfo FigureGfxInfo);
-	
+	string TempSave();
+	void TempLoad(istringstream& InFile);
 	virtual void Draw(Output* pOut) const;//Draws circle on screen
 	void CCircle::PrintInfo(Output* pOut);//Prints circle info
 	void MoveFigure(Point);//Moves circle

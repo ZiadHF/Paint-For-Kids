@@ -11,7 +11,6 @@ public:
 	
 	 void ReadActionParameters();
 	 string SaveAction::CheckColor(color x);
-	
 	 void Execute();
 };
 

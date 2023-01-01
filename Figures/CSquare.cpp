@@ -12,7 +12,9 @@ CSquare::CSquare(Point P1, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 void CSquare::Save(ofstream& OutFile) {
 	OutFile << "SQR" << " " << ID << " " << Center.x << " " << Center.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 }
-
+string CSquare::TempSave() {
+	return "SQR" + string(" ") + to_string(ID) + " " + to_string(Center.x) + " " + to_string(Center.y) +" " + CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") ;
+}
 void CSquare::Draw(Output* pOut) const
 {
 	//Call Output::DrawSqr to draw a Square on the screen	
@@ -31,6 +33,22 @@ bool CSquare::Contains(Point test) {
 		return true;
 	else
 		return false;
+}
+void CSquare::TempLoad(istringstream& InFile) {
+	 
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
 }
 void CSquare::Load(ifstream& InFile) {
 	int x;

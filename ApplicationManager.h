@@ -18,6 +18,8 @@ private:
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* DelFigList[5];//List of last 5 deleted figures(Array of pointers)
 	CFigure* SelectedFig = NULL; //Pointer to the selected figure
+	int TIndex;
+	string Timeline[5] = {"","" ,"" ,"" ,""};
 	boolean RecFlag = false;
 	boolean forbidRec = false;
 	int ActionCounter = 0;
@@ -35,6 +37,11 @@ public:
 	// -- Action-Related Functions
 
 	//Reads the input command from the user and returns the corresponding action type
+	 
+	string TempLoad();
+	string TempSaveAll();
+	void AddToTimeline(string x);
+	ActionType GetUserAction() const;
 	void AddAction(Action* pAct);
 	ActionType GetUserAction() const;//Reads the input command from the user and returns the corresponding action type
 	void DeleteAllFigures();//Clears all figures from figure list
@@ -64,5 +71,4 @@ public:
 	void UpdateInterface() const;	//Redraws all the drawing window	
 	void SaveAll(ofstream& OutFile);//Saves all figures in a text file
 };
-
 #endif

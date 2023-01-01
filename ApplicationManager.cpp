@@ -6,6 +6,7 @@
 #include"Actions/AddTriAction.h"
 #include "Actions/SaveAction.h"
 #include"Figures/CCircle.h"
+#include"Actions/UndoAction.h"
 #include "Figures/CRectangle.h"
 #include "Figures/CHexagon.h"
 #include "Figures/CTriangle.h"
@@ -32,7 +33,7 @@ ApplicationManager::ApplicationManager()
 	//Create Input and output
 	pOut = new Output;
 	pIn = pOut->CreateInput();
-
+	TIndex = 0;
 	FigCount = 0;
 	DelFigCount = 0;
 	DelFigInd = 0;
@@ -57,7 +58,6 @@ ActionType ApplicationManager::GetUserAction() const
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
 	Action* pAct = NULL;
-
 	//According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
@@ -84,6 +84,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case SELECT:
 		pAct = new SelectFigure(this);
 		forbidRec = false;
+		break;
+	case UNDO:
+		pAct = new UndoAction(this);
 		break;
 	case SAVE:
 		pAct = new SaveAction(this);
@@ -183,11 +186,43 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case STATUS:	//a click on the status bar ==> no action
 		return;
 	}
-
+	
 	//Execute the created action
+	
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
+		if (ActType != UNDO) {
+			AddToTimeline(TempSaveAll());	
+		}
+		delete pAct;	//You may need to change this line depending to your implementation
+		pAct = NULL;
+	}
+}
+
+void ApplicationManager::AddToTimeline(string x) {
+	if (TIndex != 5 && Timeline[4] == "") {
+		Timeline[TIndex] = x;
+		TIndex++;
+	}
+	else if(TIndex != 5 && Timeline[4] != ""){
+		TIndex++;
+		Timeline[TIndex] = x;
+		for (int i = TIndex; i < 5; i++) {
+			Timeline[i] = "";
+		}
+	}
+	else if (TIndex == 5) {
+		for (int i = 0; i < 5; i++) {
+			if (i == 4) {
+				Timeline[4] = x;
+			}
+			else {
+				Timeline[i] = Timeline[i + 1];
+			}
+		}
+	}
+
 		if (!RecFlag || forbidRec) {
 			delete pAct;	//You may need to change this line depending to your implementation
 			pAct = NULL;
@@ -348,6 +383,24 @@ void ApplicationManager::SaveAll(ofstream& OutFile) {
 	}
 
 }
+
+string ApplicationManager::TempLoad() {
+	if (TIndex != 1) {
+		TIndex--;
+		return Timeline[TIndex-1];
+
+	}
+	else {
+		return "";
+	}
+}
+
+string ApplicationManager::TempSaveAll() {
+	string save = to_string(getFigCount())+"\n";
+	for (int i = 0; i < FigCount; i++) {
+		save = save + FigList[i]->TempSave() +"\n";
+	}
+	return save;
 CFigure* ApplicationManager::GetFig(int x) {
 	return FigList[x];
 }
@@ -486,3 +539,5 @@ ApplicationManager::~ApplicationManager()
 	delete pOut;
 
 }
+
+ 

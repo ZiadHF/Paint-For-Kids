@@ -14,6 +14,10 @@ CHexagon::CHexagon(Point P1, GfxInfo FigureGfxInfo) :CFigure(FigureGfxInfo)
 void CHexagon::Save(ofstream& OutFile) {
 	OutFile << "HEX" << " " << ID << " " << Center.x << " " << Center.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 }
+string CHexagon::TempSave() {
+	return "HEX" + string(" ") +  std::to_string(ID) + " " + std::to_string(Center.x) + " " + std::to_string(Center.y) + " " + CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL");
+}
+
 
 void CHexagon::Draw(Output* pOut) const
 {
@@ -40,6 +44,22 @@ bool CHexagon::Contains(Point test) {
 			c = !c;
 	}
 	return c;
+}
+void CHexagon::TempLoad(istringstream& InFile) {
+	 
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	Center.x = x;
+	InFile >> x;
+	Center.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
 }
 void CHexagon::Load(ifstream& InFile) {
 	int x;

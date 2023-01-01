@@ -14,6 +14,9 @@ CTriangle::CTriangle(Point P1, Point P2, Point P3, GfxInfo FigureGfxInfo) :CFigu
 void CTriangle::Save(ofstream& OutFile) {
 	OutFile << "TRIANG" << " " << ID << " " << vert1.x << " " << vert1.y << " " << vert2.x << " " << vert2.y << " " << vert3.x << " " << vert3.y << " " << CheckColor(FigGfxInfo.DrawClr) << " " << (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") << endl;
 }
+string CTriangle::TempSave() {
+	return "TRIANG" + string(" ") + to_string(ID) + " " + to_string(vert1.x) + " " + to_string(vert1.y) + " " + to_string(vert2.x) + " " + to_string(vert2.y) + " " + to_string(vert3.x) + " " + to_string(vert3.y) + " " +CheckColor(FigGfxInfo.DrawClr) + " " + (FigGfxInfo.isFilled ? CheckColor(FigGfxInfo.FillClr) : "NO_FILL") ;
+}
 void CTriangle::Draw(Output* pOut) const
 {
 	//Call Output::DrawTri to draw a Triangle on the screen	
@@ -38,6 +41,30 @@ bool CTriangle::Contains(Point test) {
 	cond = (area == test_area1 + test_area2 + test_area3) ? true : false;
 	return cond;
 
+}
+void CTriangle::TempLoad(istringstream& InFile) {
+	 
+	int x;
+	InFile >> x;
+	ID = x;
+	InFile >> x;
+	vert1.x = x;
+	InFile >> x;
+	vert1.y = x;
+	InFile >> x;
+	vert2.x = x;
+	InFile >> x;
+	vert2.y = x;
+	InFile >> x;
+	vert3.x = x;
+	InFile >> x;
+	vert3.y = x;
+	string y;
+	InFile >> y;
+	FigGfxInfo.DrawClr = StringToColor(y);
+	InFile >> y;
+	FigGfxInfo.FillClr = StringToColor(y);
+	FigGfxInfo.isFilled = (FigGfxInfo.FillClr != HOTPINK);
 }
 void CTriangle::Load(ifstream& InFile) {
 	int x;
