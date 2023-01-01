@@ -15,6 +15,7 @@ void CAll::Execute() {
 	//Deletes all Figures and makes sure there are no selected figures.
 	pManager->DeleteAllFigures();
 	pManager->setSelectedFigure(NULL);
+	filled = false;
 	//Clears Recording and Undo/Redo History
 	//pManager->ClearRecording();
 	//pManager->ClearUndo();
