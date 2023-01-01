@@ -45,8 +45,7 @@ public:
 	
 	void ChngFillClr(color Fclr);	//changes the figure's filling color
 	color GetColor();
-	color StringToColor(string x);
-	string CheckColor(color x);
+
 
 	///The following functions should be supported by the figure class
 	///It should be overridden by each inherited figure

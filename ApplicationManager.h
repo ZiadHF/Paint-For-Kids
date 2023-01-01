@@ -40,9 +40,6 @@ public:
 	void DeleteAllFigures();//Clears all figures from figure list
 
 	void ExecuteAction(ActionType); //Creates an action and executes it
-	CFigure* getSelectedFigure();
-	void DeleteAllFigures();
-	void setSelectedFigure(CFigure*);
 	bool CheckNoFill();
 	bool CheckCircle(CFigure* ptr);
 	bool CheckRect(CFigure* ptr);

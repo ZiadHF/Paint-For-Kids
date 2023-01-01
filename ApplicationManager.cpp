@@ -180,9 +180,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		forbidRec = true;
 
 		break;
-	case EXIT:
-		///create ExitAction here
-		break;
 	case STATUS:	//a click on the status bar ==> no action
 		return;
 	}
@@ -279,14 +276,7 @@ void ApplicationManager::DeleteFigure(CFigure* pFig) {
 		FigList[i] = FigList[i + 1];
 	}
 }
-void ApplicationManager::DeleteAllFigures() {
-	for (int i = 0; i < FigCount; i++)
-	{
-		delete FigList[i];
-		FigList[i] = NULL;
-	}
-	FigCount = 0;
-}
+
 bool ApplicationManager::CheckNoFill() {
 	for (int i = 0; i < FigCount; i++)
 	{

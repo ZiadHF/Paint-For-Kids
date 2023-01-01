@@ -77,27 +77,7 @@ string CFigure::CheckColor(color x) {
 	return "NO_FILL";
 }
 
-color CFigure::StringToColor(string x) {
-	if (x == "BLACK") {
-		return BLACK;
-	}
-	if (x == "YELLOW") {
-		return YELLOW;
-	}
-	if (x == "ORANGE") {
-		return ORANGE;
-	}
-	if (x == "RED") {
-		return RED;
-	}
-	if (x == "GREEN") {
-		return GREEN;
-	}
-	if (x == "BLUE") {
-		return BLUE;
-	}
-	return HOTPINK;
-}
+
 //Checks if the figure is selected
 bool CFigure::IsSelected() const
 {
