@@ -33,6 +33,7 @@ public:
 	CFigure* getSelectedFigure();
 	void DeleteAllFigures();
 	void setSelectedFigure(CFigure*);
+	bool CheckNoFill();
 	bool CheckCircle(CFigure* ptr);
 	bool CheckRect(CFigure* ptr);
 	bool CheckTri(CFigure* ptr);

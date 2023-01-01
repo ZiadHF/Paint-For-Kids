@@ -3,6 +3,7 @@
 class PickByFill : public Action
 {
 	int correctcount, incorrectcount, totalcount;
+	bool NoFill;
 	color c;
 public:
 	PickByFill(ApplicationManager* pApp);

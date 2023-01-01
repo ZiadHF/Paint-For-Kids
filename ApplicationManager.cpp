@@ -100,6 +100,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PICKFILL:
 		if (IsPicked) {
 			pAct = new PickByFill(this);
+			IsPicked = false;
 			break;
 		}
 		pAct = NULL;
@@ -107,6 +108,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PICKFIGURE:
 		if (IsPicked) {
 			pAct = new PickByFigure(this);
+			IsPicked = false;
 			break;
 		}
 		pAct = NULL;
@@ -114,14 +116,25 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PICKFIGFILL:
 		if (IsPicked) {
 			pAct = new PickByFigFill(this);
+			IsPicked = false;
 			break;
 		}
 		pAct = NULL;
 		break;
 	case SWITCH:
-		//Save Function
-		pAct = new SwitchToPlay(this);
-		break;
+		if (FigCount == 0)
+		{
+			pOut->PrintMessage("You cant switch to draw mode as there are no figures in draw area.");
+			pAct = NULL;
+			break;
+		}
+		else {
+			//Save Function
+			pAct = new SwitchToPlay(this);
+			//Outputs message to let the kid know that he switched modes.
+			pOut->PrintMessage("Switched to Play Mode.");
+			break;
+		}
 	case SWITCHDRAW:
 		//Load Function (delete file)
 		pAct = new SwitchToDraw(this);
@@ -200,6 +213,14 @@ void ApplicationManager::DeleteAllFigures() {
 	}
 	FigCount = 0;
 }
+bool ApplicationManager::CheckNoFill() {
+	for (int i = 0; i < FigCount; i++)
+	{
+		if (FigList[i]->IsFilled())
+			return false;
+	}
+	return true;
+}
 bool ApplicationManager::CheckCircle(CFigure* ptr) {
 	CCircle* c;
 	c = dynamic_cast <CCircle*> (ptr);
@@ -270,24 +291,34 @@ int ApplicationManager::GetCount(CFigure* ptr,int x) {
 		for (int i = 0; i < FigCount; i++)
 		{
 			if (CheckCircle(ptr)) {
-				if ((dynamic_cast <CCircle*> (FigList[i])) != NULL)
+				if ((dynamic_cast <CCircle*> (FigList[i])) != NULL) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckHex(ptr)) {
-				if ((dynamic_cast <CHexagon*> (FigList[i])) != NULL)
+				if ((dynamic_cast <CHexagon*> (FigList[i])) != NULL) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckRect(ptr)) {
-				if ((dynamic_cast <CRectangle*> (FigList[i])) != NULL)
+				if ((dynamic_cast <CRectangle*> (FigList[i])) != NULL) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckSquare(ptr)) {
-				if ((dynamic_cast <CSquare*> (FigList[i])) != NULL)
+				if ((dynamic_cast <CSquare*> (FigList[i])) != NULL) {
 					totalcount++;
+					continue;
+				}
 			}
 			if (CheckTri(ptr)) {
-				if ((dynamic_cast <CTriangle*> (FigList[i])) != NULL)
+				if ((dynamic_cast <CTriangle*> (FigList[i])) != NULL) {
 					totalcount++;
+					continue;
+				}
 			}
 		}
 	}

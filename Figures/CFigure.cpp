@@ -14,7 +14,7 @@ void CFigure::SetFilled(color c) {
 }
 
 bool CFigure::IsFilled() const {
-	return (FigGfxInfo.isFilled);
+	return FigGfxInfo.isFilled;
 }
 
 void CFigure::SetSelected(bool s)

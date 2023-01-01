@@ -38,14 +38,22 @@ void PickByFigure::ReadActionParameters()
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	//Gets a random number between 0 and FigCount-1
-	int x = 0 + (rand() % (pManager->getFigCount() - 1));
+	//Gets a random number between 0 and FigCount
+	int FigCount = pManager->getFigCount();
+	int x;
+	if (FigCount == 1)
+	{
+		x = 0;
+	}
+	else {
+		x = 0 + ((rand() % FigCount - 1));
+	}
 	CFigure* ptr = pManager->GetFig(x);
 	//Gets the count of all figures and the type of the figure.
 	totalcount = pManager->GetCount(ptr,Figure);
 	Type = pManager->GetType(ptr);
 	//Prints the type of the figure to prompt the kid to get all those figures.
-	pOut->PrintMessage("Select all " + Type + "s");
+	pOut->PrintMessage("Select all " + Type + "s - " + to_string(totalcount - correctcount) + " remaining.");
 }
 
 //Execute the action
@@ -57,6 +65,7 @@ void PickByFigure::Execute()
 	ReadActionParameters();
 	//While condition that stops when all correct figures are removed.
 	while (correctcount != totalcount) {
+		//Creates the point to get where the kid clicks.
 		Point p2;
 		pIn->GetPointClicked(p2.x, p2.y);
 		CFigure* ptr = pManager->GetFigure(p2);
@@ -71,9 +80,12 @@ void PickByFigure::Execute()
 				pManager->DeleteFigure(ptr);
 				//Updates the interface to show us the figure has disappeared.
 				pManager->UpdateInterface();
+				pOut->PrintMessage("Select all " + Type + "s - " + to_string(totalcount - correctcount) + " remaining.");
 			}
-			else
+			else {
 				incorrectcount++;
+				pOut->PrintMessage("Select all " + Type + "s - " + to_string(totalcount - correctcount) + " remaining.");
+			}
 		}
 	}
 	//Gets the grade of the kid and prints.
