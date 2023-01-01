@@ -12,6 +12,8 @@ private:
 	CFigure* checked = NULL;
 	color PickedColor;
 	ActionType PickedColorAction;
+	bool intiated = false;
+	color FinalColor;
 public:
 	ChangeDrawColorAction(ApplicationManager* pApp);
 

@@ -12,6 +12,8 @@ private:
 	Point FinalPoint;
 	Point clicked;
 	CFigure* checked = NULL;
+	boolean intiated = false;
+	Point FinalPoint;
 public:
 	MoveAction(ApplicationManager* pApp);
 

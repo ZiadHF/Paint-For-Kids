@@ -34,8 +34,10 @@ void AddSqrAction::ReadActionParameters()
 void AddSqrAction::Execute()
 {
 	//This action needs to read some parameters first
-	ReadActionParameters();
-
+	if (!intiated) {
+		ReadActionParameters();
+		intiated = true;
+	}
 	//Create a Square with the parameters read from the user
 	CSquare* S = new CSquare(Center, SqrGfxInfo);
 

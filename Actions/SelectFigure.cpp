@@ -35,7 +35,11 @@ void SelectFigure::Execute()
 			//This action needs to read some parameters first
 			//Makes sure  a figure is selected ignoring pressing on empty spaces
 			do {
-				ReadActionParameters();
+
+				if (!intiated) {
+					ReadActionParameters();
+					intiated = true;
+				}
 				checked = pManager->GetFigure(clicked);
 			} while (checked == NULL);
 			pOut->ClearStatusBar();

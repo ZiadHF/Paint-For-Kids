@@ -12,7 +12,9 @@
 #include"Actions/MoveAction.h"
 #include"Actions/ChangeFillColorAction.h"
 #include"Actions/ChangeDrawColorAction.h"
-
+#include "Actions/StartRecordingAction.h"
+#include "Actions/StopRecodringAction.h"
+#include "Actions/PlayRecordingAction.h"
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -50,39 +52,71 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	{
 	case DRAW_RECT:
 		pAct = new AddRectAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_CIRC:
 		pAct = new AddCircAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_SQR:
 		pAct = new AddSqrAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_HEX:
 		pAct = new AddHexAction(this);
+		forbidRec = false;
 		break;
 	case DRAW_TRI:
 		pAct = new AddTriAction(this);
+		forbidRec = false;
 		break;
 	case SELECT:
 		pAct = new SelectFigure(this);
+		forbidRec = false;
 		break;
 	case SAVE:
 		pAct = new SaveAction(this);
+		forbidRec = true;
 		break;
 	case LOAD:
 		pAct = new LoadAction(this);
 		break;
 	case DEL:
 		pAct = new DeleteFig(this);
+		forbidRec = false;
 		break;
 	case MOVE:
 		pAct = new MoveAction(this);
+		forbidRec = false;
 		break;
 	case CHANGEFILL:
 		pAct = new ChangeFillColorAction(this);
+		forbidRec = false;
 		break;
 	case CHANGEBORDERCOLOR:
 		pAct = new ChangeDrawColorAction(this);
+		forbidRec = false;
+		break;
+	case STARTREC:
+		if (FigCount == 0) {
+			pAct = new StartRecordingAction(this);
+			RecFlag = true;
+			forbidRec = true;
+			break;
+		}
+		else {
+			pOut->PrintMessage("Error,Record starts only on at the begining of the program or after clear all");
+			break;
+		}
+	case  STOPREC:
+		pAct = new StopRecordingAction(this);
+		forbidRec = true;
+
+		break;
+	case  PLAYREC:
+		pAct = new PlayRecordingAction(this);
+		forbidRec = true;
+
 		break;
 	case EXIT:
 		///create ExitAction here
@@ -95,14 +129,44 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if (pAct != NULL)
 	{
 		pAct->Execute();//Execute
-		delete pAct;	//You may need to change this line depending to your implementation
+		if (!RecFlag || forbidRec) {
+			delete pAct;	//You may need to change this line depending to your implementation
+			pAct = NULL;
+		}
+		else {
+			AddAction(pAct);
+		}
+	}
+}
+void ApplicationManager::AddAction(Action* pAct)
+{
+	if (ActionCounter < 20) {
+		history[ActionCounter] = pAct;
+		ActionCounter++;
 		pAct = NULL;
 	}
+}
+void ApplicationManager::ExceuteActions() {
+	for (int i = 0; i < ActionCounter; i++) {
+		Sleep(1000);	
+		history[i]->Execute();
+		UpdateInterface();
+	}
+}
+
+void ApplicationManager::setRecFlag(boolean RecControl) {
+	RecFlag = RecControl;
 }
 //==================================================================================//
 //						Figures Management Functions								//
 //==================================================================================//
-
+// reset figure list
+void ApplicationManager::resetFigList() {
+	for (int i = 0; i < FigCount; i++) {
+		FigList[i] = NULL;
+	}
+	FigCount = 0;
+}
 //Add a figure to the list of figures
 void ApplicationManager::AddFigure(CFigure* pFig)
 {

@@ -5,6 +5,7 @@
 #include "Figures\CFigure.h"
 #include "GUI\input.h"
 #include "GUI\output.h"
+#include "Actions/Action.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -16,19 +17,27 @@ private:
 	CFigure* FigList[MaxFigCount];	//List of all figures (Array of pointers)
 	CFigure* DelFigList[5];//List of last 5 deleted figures(Array of pointers)
 	CFigure* SelectedFig = NULL; //Pointer to the selected figure
-	
+	boolean RecFlag = false;
+	boolean forbidRec = false;
+	int ActionCounter = 0;
+	Action* history[20];
 	//Pointers to Input and Output classes
 	Input* pIn;
-	Output* pOut;
+	Output* pOut; 
 
 public:
 	ApplicationManager();
 	~ApplicationManager();
-
+	void resetFigList();
+	void setRecFlag(boolean RecControl);
+	void ExceuteActions();
 	// -- Action-Related Functions
-	
+
+	//Reads the input command from the user and returns the corresponding action type
+	void AddAction(Action* pAct);
 	ActionType GetUserAction() const;//Reads the input command from the user and returns the corresponding action type
 	void DeleteAllFigures();//Clears all figures from figure list
+
 	void ExecuteAction(ActionType); //Creates an action and executes it
 	// -- Figures Management Functions
 
