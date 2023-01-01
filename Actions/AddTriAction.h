@@ -10,6 +10,7 @@ class AddTriAction : public Action
 private:
 	Point P1, P2,P3; //Triangle Vertices
 	GfxInfo TriGfxInfo;
+	boolean intiated = false;
 public:
 	AddTriAction(ApplicationManager* pApp);
 

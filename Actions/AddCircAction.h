@@ -11,6 +11,7 @@ class AddCircAction : public Action
 private:
 	Point Center, Radius; //Circle points
 	GfxInfo CircGfxInfo;
+	boolean intiated = false;
 public:
 	AddCircAction(ApplicationManager* pApp);
 

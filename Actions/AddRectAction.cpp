@@ -39,8 +39,10 @@ void AddRectAction::ReadActionParameters()
 void AddRectAction::Execute() 
 {
 	//This action needs to read some parameters first
-	ReadActionParameters();
-	
+	if (!intiated) {
+		ReadActionParameters();
+		intiated = true;
+	}
 	//Create a rectangle with the parameters read from the user
 	CRectangle *R=new CRectangle(P1, P2, RectGfxInfo);
 

@@ -11,7 +11,7 @@ class Action
 {
 protected:
 	ApplicationManager *pManager;	//Actions needs AppMngr to do their job
-	static bool filled;
+	static bool filled;	
 public:
 
 	Action(ApplicationManager *pApp) { pManager = pApp; }	//constructor

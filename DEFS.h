@@ -45,6 +45,12 @@ enum ActionType //The actions supported (you can add more if needed)
 	///TODO: Add the other action types of the two modes
 };
 
+enum PickAndHideModes {
+	Figure,
+	Fill,
+	FigFill,
+};
+
 struct Point	//To be used for figures points
 {
 	int x, y;

@@ -10,6 +10,7 @@ class AddHexAction : public Action
 private:
 	Point Center; //Hexagon Corners
 	GfxInfo HexGfxInfo;
+	boolean intiated = false;
 public:
 	AddHexAction(ApplicationManager* pApp);
 

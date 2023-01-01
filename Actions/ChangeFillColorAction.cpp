@@ -23,46 +23,60 @@ void ChangeFillColorAction::ReadActionParameters()
 		PickedColorAction = pIn->GetUserAction();
 	
 	}
-	checked = pManager->getSelectedFigure();
-
 }
 
 //Execute the action
 void ChangeFillColorAction::Execute()
 
 {
-	
+
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	
-	if (pManager->getSelectedFigure() != NULL) {
+	if (!intiated) {
+		intiated = true;
 		ReadActionParameters();
-		switch (PickedColorAction) {
-		case RED_COLOR:
-			PickedColor = RED;
-			break;
-		case BLUE_COLOR:
-			PickedColor = BLUE;
-			break;
-		case GREEN_COLOR:
-			PickedColor = GREEN;
-			 break;
-		case  ORANGE_COLOR:
-			PickedColor = ORANGE;
-			 break;
-		case YELLOW_COLOR:
-			PickedColor = YELLOW;
-			 break;
-		case BLACK_COLOR:
-			PickedColor = BLACK;
-			break;
+		if (pManager->getSelectedFigure() != NULL) {
+			checked = pManager->getSelectedFigure();
+			switch (PickedColorAction) {
+			case RED_COLOR:
+				PickedColor = RED;
+				break;
+			case BLUE_COLOR:
+				PickedColor = BLUE;
+				break;
+			case GREEN_COLOR:
+				PickedColor = GREEN;
+				break;
+			case  ORANGE_COLOR:
+				PickedColor = ORANGE;
+				break;
+			case YELLOW_COLOR:
+				PickedColor = YELLOW;
+				break;
+			case BLACK_COLOR:
+				PickedColor = BLACK;
+				break;
+			}
+			checked->ChngFillClr(PickedColor);
+			UI.FillColor = PickedColor;
+			FinalColor = PickedColor;
+			filled = true;
+			pOut->ClearStatusBar();
 		}
-		checked->ChngFillClr(PickedColor);
-		UI.FillColor = PickedColor;
-		filled = true;
-		pOut->ClearStatusBar();
+		else {
+			pOut->PrintMessage("Please Select a figure first.");
+		}
 	}
 	else {
-		pOut->PrintMessage("Please Select a figure first.");
+		if (pManager->getSelectedFigure() != NULL) {
+			checked=pManager->getSelectedFigure();
+			checked->ChngFillClr(FinalColor);
+			UI.FillColor = FinalColor;
+			filled = true;
+		}
+		else {
+			pOut->PrintMessage("Please Select a figure first.");
+
+		}
 	}
 }
