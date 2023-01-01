@@ -47,6 +47,8 @@ void MoveAction::Execute()
                     if (!(pIn->MouseClicked(clicked))) {
                         FinalPoint = clicked;
                         dragging = false;
+                        pOut->CreateDrawToolBar();
+                        pOut->ClearStatusBar();
                         break;
                     }
                     else {
